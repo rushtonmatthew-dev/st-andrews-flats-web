@@ -1,6 +1,6 @@
 import Link from "next/link";
-import { getAnalyticsData, type AnalyticsData } from "@/lib/analytics";
-import { WeeklyChart, DayOfWeekChart, HourChart, AgentChart } from "./charts";
+import { getAnalyticsData, getStreetCostData, type AnalyticsData, type StreetCostEntry } from "@/lib/analytics";
+import { WeeklyChart, DayOfWeekChart, HourChart, AgentChart, StreetHeatMap } from "./charts";
 
 export const revalidate = 900;
 
@@ -15,8 +15,9 @@ function KpiCard({ label, value }: { label: string; value: string | number }) {
 
 export default async function AnalyticsPage() {
   let data: AnalyticsData | null = null;
+  let streetData: StreetCostEntry[] = [];
   try {
-    data = await getAnalyticsData();
+    [data, streetData] = await Promise.all([getAnalyticsData(), getStreetCostData()]);
   } catch {
     // handled below
   }
@@ -63,6 +64,7 @@ export default async function AnalyticsPage() {
                 <HourChart data={data.by_hour} />
               </div>
               <AgentChart data={data.by_agent} />
+              {streetData.length > 0 && <StreetHeatMap data={streetData} />}
             </div>
 
             <p className="text-xs text-gray-400 text-center mt-8">
