@@ -1,27 +1,8 @@
 import Link from "next/link";
+import { getAnalyticsData, type AnalyticsData } from "@/lib/analytics";
 import { WeeklyChart, DayOfWeekChart, HourChart, AgentChart } from "./charts";
 
-type AnalyticsData = {
-  total: number;
-  last_30_days: number;
-  peak_day: string;
-  top_agent: string;
-  by_week: { week: string; count: number }[];
-  by_day_of_week: { day: string; count: number }[];
-  by_hour: { hour: number; count: number }[];
-  by_agent: { agent: string; count: number }[];
-};
-
-async function getAnalytics(): Promise<AnalyticsData | null> {
-  try {
-    const base = process.env.NEXT_PUBLIC_BASE_URL ?? "http://localhost:3000";
-    const res = await fetch(`${base}/api/analytics`, { next: { revalidate: 900 } });
-    if (!res.ok) return null;
-    return res.json();
-  } catch {
-    return null;
-  }
-}
+export const revalidate = 900;
 
 function KpiCard({ label, value }: { label: string; value: string | number }) {
   return (
@@ -33,12 +14,16 @@ function KpiCard({ label, value }: { label: string; value: string | number }) {
 }
 
 export default async function AnalyticsPage() {
-  const data = await getAnalytics();
+  let data: AnalyticsData | null = null;
+  try {
+    data = await getAnalyticsData();
+  } catch {
+    // handled below
+  }
 
   return (
     <main className="min-h-screen bg-gray-50 px-4 py-12">
       <div className="max-w-4xl mx-auto">
-        {/* Header */}
         <div className="mb-8">
           <Link href="/" className="text-sm text-gray-400 hover:text-gray-600 mb-4 inline-block">
             ← Back
@@ -64,7 +49,6 @@ export default async function AnalyticsPage() {
           </div>
         ) : (
           <>
-            {/* KPI cards */}
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-8">
               <KpiCard label="Total seen" value={data.total.toLocaleString()} />
               <KpiCard label="Last 30 days" value={data.last_30_days} />
@@ -72,7 +56,6 @@ export default async function AnalyticsPage() {
               <KpiCard label="Peak day" value={data.peak_day} />
             </div>
 
-            {/* Charts */}
             <div className="space-y-6">
               <WeeklyChart data={data.by_week} />
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
