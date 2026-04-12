@@ -9,6 +9,20 @@ export const metadata: Metadata = {
 
 const posts = [
   {
+    slug: "parents-guide-student-housing",
+    title: "A Parent's Guide to Student Housing in St Andrews",
+    date: "April 2025",
+    excerpt:
+      "Costs, timelines, HMO rules, rental fraud, and guarantor arrangements — everything parents need to know before their child leaves halls.",
+  },
+  {
+    slug: "second-year-housing-scramble",
+    title: "The St Andrews Second-Year Housing Scramble: A Survival Guide (2025–26)",
+    date: "April 2025",
+    excerpt:
+      "Timelines, costs, agents, HMO rules, and how to avoid getting caught without a flat. Everything first-years need to know before the January drop.",
+  },
+  {
     slug: "best-streets-st-andrews",
     title: "Best Streets for Students in St Andrews",
     date: "April 2025",
