@@ -5,6 +5,7 @@ export const metadata: Metadata = {
   title: "A Parent's Guide to Student Housing in St Andrews | standrewsflats.uk",
   description:
     "What parents need to know about the St Andrews private rental market — costs, timelines, HMO rules, rental fraud, and how to help your child secure a flat.",
+  alternates: { canonical: "https://www.standrewsflats.uk/blog/parents-guide-student-housing" },
 };
 
 export default function ParentsGuidePost() {

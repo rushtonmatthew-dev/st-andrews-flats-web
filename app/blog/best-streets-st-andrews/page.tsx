@@ -5,6 +5,7 @@ export const metadata: Metadata = {
   title: "Best Streets for Students in St Andrews | standrewsflats.uk",
   description:
     "Which streets in St Andrews are best for student flats? From North Street to Lade Braes — a practical breakdown for 2nd, 3rd, and 4th-year students.",
+  alternates: { canonical: "https://www.standrewsflats.uk/blog/best-streets-st-andrews" },
 };
 
 export default function BestStreetsPost() {

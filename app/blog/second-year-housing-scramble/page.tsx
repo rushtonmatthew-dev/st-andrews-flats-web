@@ -5,6 +5,7 @@ export const metadata: Metadata = {
   title: "The St Andrews Second-Year Housing Scramble: A Survival Guide | standrewsflats.uk",
   description:
     "Everything St Andrews first-years need to know about securing a flat for second year — timelines, costs, agents, HMO rules, and how to avoid getting caught out.",
+  alternates: { canonical: "https://www.standrewsflats.uk/blog/second-year-housing-scramble" },
 };
 
 export default function SecondYearHousingScramblePost() {

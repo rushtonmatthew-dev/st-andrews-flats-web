@@ -5,6 +5,7 @@ export const metadata: Metadata = {
   title: "St Andrews Housing Timeline: When to Start Looking | standrewsflats.uk",
   description:
     "When should St Andrews students start looking for a flat? A month-by-month guide to the St Andrews rental market for 2nd, 3rd, and 4th year.",
+  alternates: { canonical: "https://www.standrewsflats.uk/blog/housing-timeline-st-andrews" },
 };
 
 export default function HousingTimelinePost() {

@@ -47,11 +47,28 @@ const CHECK_ICON = (
   </span>
 );
 
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  name: "St Andrews Flats — Letting Alerts",
+  url: "https://www.standrewsflats.uk",
+  description:
+    "Free letting alerts for St Andrews University students. Monitors 6 letting agents every 15 minutes.",
+  applicationCategory: "Utility",
+  operatingSystem: "Web",
+  offers: { "@type": "Offer", price: "0", priceCurrency: "GBP" },
+};
+
 export default async function Home() {
   const subscriberCount = await getSubscriberCount();
 
   return (
-    <main className="flex flex-col items-center justify-center min-h-screen px-4 py-16">
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+      <main className="flex flex-col items-center justify-center min-h-screen px-4 py-16">
       <div className="max-w-xl w-full">
 
         {/* Hero */}
@@ -174,5 +191,6 @@ export default async function Home() {
 
       </div>
     </main>
+    </>
   );
 }

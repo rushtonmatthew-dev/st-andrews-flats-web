@@ -5,6 +5,7 @@ export const metadata: Metadata = {
   title: "St Andrews Student Housing Insights | standrewsflats.uk",
   description:
     "Guides and insights on finding student accommodation in St Andrews — timelines, best streets, letting agents, and more.",
+  alternates: { canonical: "https://www.standrewsflats.uk/blog" },
 };
 
 const posts = [
