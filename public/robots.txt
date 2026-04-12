@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://standrewsflats.uk/sitemap.xml
+Sitemap: https://www.standrewsflats.uk/sitemap.xml

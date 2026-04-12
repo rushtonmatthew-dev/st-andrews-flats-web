@@ -110,27 +110,30 @@ export default function SubscribePage() {
           {/* Alert type */}
           <div>
             <p className="block text-sm font-medium text-gray-700 mb-2">Alert frequency</p>
-            <div className="grid grid-cols-3 gap-2">
+            <div className="flex flex-col gap-2">
               {(["both", "instant", "daily"] as const).map((t) => {
-                const labels = { both: "Both", instant: "Instant only", daily: "Daily only" };
-                const descs = {
-                  both: "Instant + morning digest",
-                  instant: "Alert when new listings appear",
-                  daily: "One email every morning",
+                const options: Record<string, { label: string; desc: string }> = {
+                  both: { label: "Instant + morning digest", desc: "Alert the moment a listing appears, plus a daily roundup" },
+                  instant: { label: "Instant only", desc: "Alert when new listings appear — no daily email" },
+                  daily: { label: "Daily digest only", desc: "One email every morning with everything new" },
                 };
+                const selected = subType === t;
                 return (
                   <button
                     key={t}
                     type="button"
                     onClick={() => setSubType(t)}
-                    className={`rounded-lg border px-3 py-3 text-left transition-colors ${
-                      subType === t
+                    className={`rounded-lg border px-4 py-3 text-left transition-colors flex items-start gap-3 ${
+                      selected
                         ? "border-blue-600 bg-blue-50 text-blue-700"
                         : "border-gray-200 text-gray-600 hover:border-gray-300"
                     }`}
                   >
-                    <span className="block text-sm font-semibold">{labels[t]}</span>
-                    <span className="block text-xs mt-0.5 opacity-75">{descs[t]}</span>
+                    <span className={`mt-0.5 w-4 h-4 rounded-full border-2 flex-shrink-0 ${selected ? "border-blue-600 bg-blue-600" : "border-gray-300 bg-white"}`} />
+                    <span>
+                      <span className="block text-sm font-semibold">{options[t].label}</span>
+                      <span className="block text-xs mt-0.5 opacity-75">{options[t].desc}</span>
+                    </span>
                   </button>
                 );
               })}

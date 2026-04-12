@@ -1,8 +1,28 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { getAnalyticsData, getStreetCostData, type AnalyticsData, type StreetCostEntry } from "@/lib/analytics";
 import { WeeklyChart, DayOfWeekChart, HourChart, AgentChart, StreetHeatMap } from "./charts";
 
 export const revalidate = 900;
+
+export const metadata: Metadata = {
+  title: "St Andrews Letting Market Data — When do flats come to market?",
+  description:
+    "Live market data on St Andrews student lettings. When do flats come to market? Which agents list most? Data updated every 15 minutes.",
+  alternates: { canonical: "https://www.standrewsflats.uk/analytics" },
+  openGraph: {
+    title: "St Andrews Lettings Market Data — Live insights",
+    description:
+      "When do flats come to market in St Andrews? Which agents list most? Real data, updated every 15 minutes.",
+    url: "https://www.standrewsflats.uk/analytics",
+    type: "website",
+    siteName: "St Andrews Flats",
+    images: [{ url: "https://www.standrewsflats.uk/og-image.png" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+  },
+};
 
 function KpiCard({ label, value }: { label: string; value: string | number }) {
   return (

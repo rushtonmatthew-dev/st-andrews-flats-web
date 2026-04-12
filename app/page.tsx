@@ -1,4 +1,28 @@
+import type { Metadata } from "next";
 import Link from "next/link";
+
+export const metadata: Metadata = {
+  title: "St Andrews Student Letting Alerts — Free flat alerts for St Andrews students",
+  description:
+    "Free letting alerts for St Andrews University students. We check Studentpad, DJ Alexander, Lawson Thompson, Lettingweb, Standys and more every 15 minutes — and email you the moment a new flat appears.",
+  alternates: { canonical: "https://www.standrewsflats.uk/" },
+  openGraph: {
+    title: "St Andrews Student Letting Alerts — Free & instant",
+    description:
+      "We check 6 letting agents every 15 minutes and email you the moment a new flat appears. Free, no account needed.",
+    url: "https://www.standrewsflats.uk/",
+    type: "website",
+    siteName: "St Andrews Flats",
+    images: [{ url: "https://www.standrewsflats.uk/og-image.png" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "St Andrews Student Letting Alerts — Free & instant",
+    description:
+      "We check 6 letting agents every 15 minutes and email you the moment a new flat appears. Free, no account needed.",
+    images: ["https://www.standrewsflats.uk/og-image.png"],
+  },
+};
 
 export default function Home() {
   return (
