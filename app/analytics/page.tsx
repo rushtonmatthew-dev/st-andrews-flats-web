@@ -33,7 +33,18 @@ function KpiCard({ label, value }: { label: string; value: string | number }) {
   );
 }
 
+function ukTimezoneLabel(): string {
+  // Approximate BST check: last Sunday in March → last Sunday in October
+  const now = new Date();
+  const jan = new Date(now.getFullYear(), 0, 1);
+  const jul = new Date(now.getFullYear(), 6, 1);
+  const stdOffset = Math.max(jan.getTimezoneOffset(), jul.getTimezoneOffset());
+  const isDST = now.getTimezoneOffset() < stdOffset;
+  return isDST ? "BST (British Summer Time, UTC+1)" : "GMT (UK time, UTC+0)";
+}
+
 export default async function AnalyticsPage() {
+  const tzLabel = ukTimezoneLabel();
   let data: AnalyticsData | null = null;
   let streetData: StreetCostEntry[] = [];
   try {
@@ -50,8 +61,10 @@ export default async function AnalyticsPage() {
             ← Back
           </Link>
           <h1 className="text-3xl font-bold text-gray-900">Market Insights</h1>
-          <p className="text-gray-500 mt-1">
-            When do St Andrews lettings come to market? Data builds up over time — check back weekly for richer trends.
+          <p className="text-gray-500 mt-1 mb-3">
+            Live data on the St Andrews private student lettings market. Tracks when new listings appear
+            across all major letting agents — updated every 15 minutes. Data accumulates over time;
+            check back weekly for richer trends.
           </p>
         </div>
 
@@ -88,7 +101,7 @@ export default async function AnalyticsPage() {
             </div>
 
             <p className="text-xs text-gray-400 text-center mt-8">
-              Updated every 15 minutes. Times shown in UTC.
+              Updated every 15 minutes. Times shown in {tzLabel}.
             </p>
           </>
         )}

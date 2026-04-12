@@ -98,6 +98,24 @@ export function costColour(norm: number): string {
 }
 
 // ---------------------------------------------------------------------------
+// Agent display name mapping (DB stores concatenated keys e.g. "LawsonThompson")
+// ---------------------------------------------------------------------------
+
+export const AGENT_DISPLAY_NAMES: Record<string, string> = {
+  LawsonThompson:        "Lawson Thompson",
+  DJAlexander:           "DJ Alexander",
+  Studentpad:            "Studentpad",
+  StAndrewsPropertyLets: "St Andrews Property Lets",
+  Lettingweb:            "Lettingweb",
+  Standys:               "Standys",
+  StAndrewsPropertyCo:   "St Andrews Property Co",
+};
+
+export function formatAgentName(raw: string): string {
+  return AGENT_DISPLAY_NAMES[raw] ?? raw;
+}
+
+// ---------------------------------------------------------------------------
 // Timing analytics
 // ---------------------------------------------------------------------------
 
@@ -164,7 +182,7 @@ export async function getAnalyticsData(): Promise<AnalyticsData> {
     count,
   }));
   const by_agent = Array.from(agentCounts.entries())
-    .map(([agent, count]) => ({ agent, count }))
+    .map(([agent, count]) => ({ agent: formatAgentName(agent), count }))
     .sort((a, b) => b.count - a.count);
 
   const peakDay = by_day_of_week.reduce((a, b) => (a.count >= b.count ? a : b));
@@ -173,7 +191,7 @@ export async function getAnalyticsData(): Promise<AnalyticsData> {
     total: rows.length,
     last_30_days: last30,
     peak_day: peakDay.day,
-    top_agent: by_agent[0]?.agent ?? "—",
+    top_agent: by_agent[0]?.agent ?? "—",  // already formatted via formatAgentName above
     by_week,
     by_day_of_week,
     by_hour,
