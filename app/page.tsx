@@ -67,11 +67,6 @@ export default function Home() {
           <p className="text-center text-sm text-gray-400 mt-4">
             Free. No account needed. Unsubscribe any time.
           </p>
-          <p className="text-center text-sm text-gray-400 mt-6">
-            <Link href="/analytics" className="hover:text-gray-600 underline underline-offset-2">
-              Market insights →
-            </Link>
-          </p>
         </div>
       </main>
       <footer className="w-full text-center py-6 text-xs text-gray-400">

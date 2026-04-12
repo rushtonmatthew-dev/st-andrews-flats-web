@@ -87,10 +87,6 @@ export default function SubscribePage() {
   return (
     <main className="flex flex-col items-center justify-center min-h-screen px-4 py-16">
       <div className="max-w-md w-full">
-        <Link href="/" className="text-sm text-gray-400 hover:text-gray-600 mb-8 inline-block">
-          ← Back
-        </Link>
-
         <h1 className="text-3xl font-bold text-gray-900 mb-2">Set up your alerts</h1>
         <p className="text-gray-500 mb-8">Takes 30 seconds. Free forever.</p>
 
