@@ -2,9 +2,18 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "St Andrews Student Housing Guide 2025 | standrewsflats.uk",
+  title: "St Andrews Student Housing Guide — Everything you need to know",
   description:
-    "Everything St Andrews University students need to know about finding a flat — timelines, best streets, what agents to use, and how to beat other students to a listing.",
+    "A complete guide to finding private accommodation in St Andrews as a university student — when to search, which agents to use, what to pay, and how to avoid scams.",
+  alternates: { canonical: "https://www.standrewsflats.uk/guide" },
+  openGraph: {
+    title: "St Andrews Student Housing Guide",
+    description:
+      "When to search, which agents to use, what to pay, and how to avoid scams — everything St Andrews students need to know about finding a flat.",
+    url: "https://www.standrewsflats.uk/guide",
+    type: "website",
+    siteName: "St Andrews Flats",
+  },
 };
 
 export default function GuidePage() {
@@ -15,39 +24,69 @@ export default function GuidePage() {
           ← Back
         </Link>
         <h1 className="text-3xl font-bold text-gray-900 mb-2">
-          The St Andrews Student Housing Guide
+          The St Andrews student housing guide
         </h1>
         <p className="text-gray-500 mt-1 mb-8">
-          Everything you need to find a flat in St Andrews — from when to start looking to how to beat 300 other students to the same listing.
+          Finding a flat in St Andrews is genuinely hard. The town has a population of around 20,000
+          — and more than half of them are students. Properties let within days of appearing.
+          Here&apos;s everything you need to know.
         </p>
 
         <div className="space-y-6">
 
-          {/* Timeline */}
+          {/* Why competitive */}
+          <section className="bg-white rounded-xl border border-gray-200 p-6">
+            <h2 className="text-xl font-semibold text-gray-900 mb-3">Why St Andrews housing is so competitive</h2>
+            <p className="text-gray-600 leading-relaxed mb-3">
+              St Andrews is one of the most constrained student housing markets in the UK. The University
+              houses around 4,100 students directly, but with over 10,000 students in a town of 20,000,
+              around 6,000 students must find private housing in a market with very limited supply.
+            </p>
+            <p className="text-gray-600 leading-relaxed mb-3">Several factors make it worse:</p>
+            <ul className="space-y-2 text-sm text-gray-600 list-disc list-inside ml-2">
+              <li>
+                A cap on Houses in Multiple Occupation (HMOs) introduced by Fife Council limits
+                the supply of shared student housing
+              </li>
+              <li>
+                The rise of Airbnb and holiday lets means former long-term rental properties are
+                increasingly used for golf tourism and short stays
+              </li>
+              <li>
+                The town is geographically isolated — Dundee is 14 miles away, and the nearest
+                train station (Leuchars) is a bus ride from campus
+              </li>
+            </ul>
+            <p className="text-gray-600 leading-relaxed mt-3">
+              The result: properties list and let within days. Students who are not paying close
+              attention to letting agent websites miss out.
+            </p>
+          </section>
+
+          {/* When to look */}
           <section className="bg-white rounded-xl border border-gray-200 p-6">
             <h2 className="text-xl font-semibold text-gray-900 mb-3">When to start looking</h2>
             <p className="text-gray-600 leading-relaxed mb-4">
-              St Andrews has roughly 10,000 students and a very limited housing stock — which means the market moves faster than almost any other university town in the UK. If you wait until January, most of the good flats are gone.
+              This is the most common mistake. Many students don&apos;t start looking until spring —
+              by which point the market for the following September is largely gone.
             </p>
             <div className="overflow-x-auto">
               <table className="w-full text-sm">
                 <thead>
                   <tr className="border-b border-gray-100">
-                    <th className="text-left py-2 pr-4 font-semibold text-gray-700">Month</th>
-                    <th className="text-left py-2 text-gray-700">What&apos;s happening</th>
+                    <th className="text-left py-2 pr-6 font-semibold text-gray-700">Period</th>
+                    <th className="text-left py-2 text-gray-700">What to do</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-gray-50">
                   {[
-                    ["October", "Letting agents start listing next year's properties. This is when the rush begins for 2nd years."],
-                    ["November", "Peak viewings. Most popular flats get snapped up within days of listing."],
-                    ["December", "Good flats are largely gone. Competition drops but so does choice."],
-                    ["January", "Last-chance stragglers — often less desirable or pricier properties."],
-                    ["February+", "Private landlords and overflow listings only. Very slim pickings."],
-                  ].map(([month, desc]) => (
-                    <tr key={month}>
-                      <td className="py-2.5 pr-4 font-medium text-gray-700 whitespace-nowrap">{month}</td>
-                      <td className="py-2.5 text-gray-600">{desc}</td>
+                    ["Oct–Nov (first term)", "Form your flatmate group. Decide bedrooms, budget, and area. Set up alerts now."],
+                    ["January–February", "Critical window. Most agents release annual listings. Have your group ready and alerts active."],
+                    ["March onwards", "Best properties are gone. Range is narrower, prices may be higher."],
+                  ].map(([period, action]) => (
+                    <tr key={period}>
+                      <td className="py-2.5 pr-6 font-medium text-gray-700 whitespace-nowrap">{period}</td>
+                      <td className="py-2.5 text-gray-600">{action}</td>
                     </tr>
                   ))}
                 </tbody>
@@ -55,76 +94,55 @@ export default function GuidePage() {
             </div>
           </section>
 
-          {/* Areas */}
+          {/* Costs */}
           <section className="bg-white rounded-xl border border-gray-200 p-6">
-            <h2 className="text-xl font-semibold text-gray-900 mb-3">Best areas and streets for St Andrews students</h2>
+            <h2 className="text-xl font-semibold text-gray-900 mb-3">How much does it cost?</h2>
             <p className="text-gray-600 leading-relaxed mb-4">
-              St Andrews is small enough that nowhere is truly far from the university — but some areas are more popular (and more expensive) than others.
+              St Andrews is the most expensive student rental market in Scotland.
             </p>
-            <div className="space-y-4">
-              {[
-                {
-                  area: "North Street & South Street",
-                  desc: "The most central streets, minutes from the main buildings. Popular with 4th-year students who want walkable convenience. Expect to pay a premium — these are the most sought-after addresses in town.",
-                },
-                {
-                  area: "Murray Park & The Scores",
-                  desc: "Quieter side streets near the sea cliffs. Great views, slightly cheaper than the main streets, and still very central. Popular with 3rd and 4th years.",
-                },
-                {
-                  area: "Lade Braes & Argyle Street",
-                  desc: "Best value in town. A 10-minute walk from lectures, these streets offer larger flats at lower prices per person. Very popular with 3rd years moving out of halls for the first time.",
-                },
-                {
-                  area: "KY16 postcodes",
-                  desc: "All St Andrews rental properties sit within the KY16 postcode. When searching, use KY16 to filter specifically to St Andrews and avoid nearby towns like Cupar or Anstruther.",
-                },
-              ].map(({ area, desc }) => (
-                <div key={area}>
-                  <h3 className="font-semibold text-gray-800 mb-1">{area}</h3>
-                  <p className="text-gray-600 text-sm leading-relaxed">{desc}</p>
-                </div>
-              ))}
+            <div className="overflow-x-auto">
+              <table className="w-full text-sm">
+                <thead>
+                  <tr className="border-b border-gray-100">
+                    <th className="text-left py-2 pr-6 font-semibold text-gray-700">Property type</th>
+                    <th className="text-left py-2 font-semibold text-gray-700">Monthly cost</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-gray-50">
+                  {[
+                    ["Studio / 1-bed", "£600–£1,000+ per month"],
+                    ["2-bed flat", "£900–£1,400/mo (£450–£700 per person)"],
+                    ["3-bed flat", "£1,000–£1,800/mo (£350–£600 per person)"],
+                    ["4–5 bed flat", "£1,400–£2,500/mo (£300–£500 per person)"],
+                  ].map(([type, cost]) => (
+                    <tr key={type}>
+                      <td className="py-2.5 pr-6 text-gray-700">{type}</td>
+                      <td className="py-2.5 font-medium text-gray-900">{cost}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
             </div>
-          </section>
-
-          {/* Prices */}
-          <section className="bg-white rounded-xl border border-gray-200 p-6">
-            <h2 className="text-xl font-semibold text-gray-900 mb-3">How much does renting in St Andrews cost?</h2>
-            <p className="text-gray-600 leading-relaxed mb-4">
-              St Andrews is one of the more expensive places to rent as a student in Scotland. Prices vary significantly by area, property size, and whether bills are included.
-            </p>
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-              {[
-                { type: "Studio / 1-bed", price: "£700–£1,000/mo" },
-                { type: "Shared flat (per room)", price: "£550–£850/mo" },
-                { type: "Larger house (per room)", price: "£500–£700/mo" },
-              ].map(({ type, price }) => (
-                <div key={type} className="bg-gray-50 rounded-lg p-4">
-                  <p className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-1">{type}</p>
-                  <p className="text-lg font-bold text-gray-900">{price}</p>
-                </div>
-              ))}
-            </div>
-            <p className="text-sm text-gray-500 mt-4">
-              Bills are rarely included. Budget an extra £80–£120/month for gas, electricity, and broadband in a shared flat.
+            <p className="text-xs text-gray-400 mt-3">
+              Utilities are usually not included — budget an additional £80–£120/person/month for
+              gas, electricity, and broadband.
             </p>
           </section>
 
           {/* Agents */}
           <section className="bg-white rounded-xl border border-gray-200 p-6">
-            <h2 className="text-xl font-semibold text-gray-900 mb-3">Which letting agents cover St Andrews?</h2>
-            <p className="text-gray-600 leading-relaxed mb-4">
-              There are six main sources for St Andrews student accommodation. Each moves at a different speed and covers slightly different properties.
+            <h2 className="text-xl font-semibold text-gray-900 mb-3">Which letting agents to use</h2>
+            <p className="text-gray-600 leading-relaxed mb-3">
+              There are six main sources to monitor for St Andrews student properties:
             </p>
             <ul className="space-y-2 text-sm text-gray-600">
               {[
-                ["Lawson Thompson", "Largest dedicated St Andrews agent. Fast-moving — listings go within days."],
-                ["DJ Alexander", "National firm with a St Andrews branch. Solid mid-range and professional lets."],
-                ["Studentpad", "Student-specific platform. Popular for shared houses, good for international students."],
-                ["Rightmove", "Aggregator — pulls listings from multiple agents. Good for search, not for exclusives."],
-                ["Lettingweb", "Scottish portal. Lower volume but occasionally has properties not listed elsewhere."],
-                ["S1Homes", "Scottish classifieds. Worth checking for private landlord listings."],
+                ["Lawson Thompson", "specialist student agent, most active in the market"],
+                ["DJ Alexander", "large Scottish agent with a St Andrews branch"],
+                ["Studentpad", "University's official private accommodation platform"],
+                ["Lettingweb", "Scottish aggregator"],
+                ["Standys", "St Andrews-focused student platform"],
+                ["St Andrews Property Lets", "local agency with occasional exclusives"],
               ].map(([name, desc]) => (
                 <li key={name} className="flex gap-2">
                   <span className="font-semibold text-gray-800 whitespace-nowrap">{name} —</span>
@@ -132,19 +150,71 @@ export default function GuidePage() {
                 </li>
               ))}
             </ul>
-            <Link
-              href="/agents"
-              className="inline-block mt-4 text-sm text-blue-600 hover:text-blue-700 underline underline-offset-2"
-            >
+            <Link href="/agents" className="inline-block mt-4 text-sm text-blue-600 underline hover:text-blue-700">
               Full agent breakdown →
             </Link>
           </section>
 
+          {/* Scams */}
+          <section className="bg-white rounded-xl border border-gray-200 p-6">
+            <h2 className="text-xl font-semibold text-gray-900 mb-3">Avoiding scams</h2>
+            <p className="text-gray-600 leading-relaxed mb-3">
+              The St Andrews housing crisis creates conditions for fraud. Students have lost thousands
+              of pounds to accommodation scams. Protect yourself:
+            </p>
+            <ul className="space-y-2 text-sm text-gray-600 list-disc list-inside ml-2">
+              <li>Never pay a holding deposit or rent without viewing the property in person</li>
+              <li>Never transfer money to someone you have not met</li>
+              <li>
+                Verify the landlord&apos;s identity via the{" "}
+                <a
+                  href="https://www.landlordregistrationscotland.gov.uk"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-blue-600 underline"
+                >
+                  Scottish Landlord Register
+                </a>
+              </li>
+              <li>Use a reputable letting agent where possible</li>
+              <li>If a deal seems too good to be true, it is</li>
+            </ul>
+          </section>
+
+          {/* Tenant rights */}
+          <section className="bg-white rounded-xl border border-gray-200 p-6">
+            <h2 className="text-xl font-semibold text-gray-900 mb-3">Your rights as a tenant in Scotland</h2>
+            <p className="text-gray-600 leading-relaxed mb-3">
+              Student renters in Scotland have strong legal protections under the Private Housing
+              (Tenancies) (Scotland) Act 2016. Key points:
+            </p>
+            <ul className="space-y-2 text-sm text-gray-600 list-disc list-inside ml-2">
+              <li>
+                You will sign a Private Residential Tenancy (PRT), which has no fixed end date —
+                you can give 28 days&apos; notice to leave at any time
+              </li>
+              <li>
+                Your landlord must give 84 days&apos; notice to end your tenancy (28 days in some
+                circumstances)
+              </li>
+              <li>
+                Your deposit must be held in a government-approved tenancy deposit scheme
+                (SafeDeposits Scotland, MyDeposits Scotland, or Letting Protection Service Scotland)
+              </li>
+              <li>Your landlord must be registered on the Scottish Landlord Register</li>
+            </ul>
+            <p className="text-sm text-gray-600 mt-3">
+              The Students&apos; Association offers a free lease-checking service. Use it before
+              signing anything.
+            </p>
+          </section>
+
           {/* CTA */}
           <section className="bg-blue-600 rounded-xl p-6 text-white">
-            <h2 className="text-xl font-semibold mb-2">Be first when a flat appears</h2>
+            <h2 className="text-xl font-semibold mb-2">Get alerts the moment a flat appears</h2>
             <p className="text-blue-100 leading-relaxed mb-4">
-              We check all 6 letting agents every 15 minutes and email you the moment a new listing goes live. Free, no account needed.
+              The best thing you can do right now is set up free letting alerts so you&apos;re
+              notified the moment a new property appears — before it&apos;s gone.
             </p>
             <Link
               href="/subscribe"
