@@ -17,6 +17,9 @@ export default function Home() {
           </p>
         </div>
 
+        <h2 className="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-3">
+          St Andrews student accommodation — what we cover
+        </h2>
         <ul className="space-y-3 mb-10">
           {[
             "Covers Rightmove, Studentpad, DJ Alexander, Lawson Thompson, Lettingweb & more",
@@ -49,6 +52,17 @@ export default function Home() {
             Market insights →
           </Link>
         </p>
+
+        <div className="mt-10 pt-8 border-t border-gray-200">
+          <h2 className="text-base font-semibold text-gray-700 mb-2">
+            Which letting agents do we monitor?
+          </h2>
+          <p className="text-sm text-gray-500 leading-relaxed">
+            We watch Rightmove, Studentpad, DJ Alexander, Lawson Thompson, Lettingweb,
+            and S1Homes — every St Andrews letting agent students actually use.
+            Ideal if you&apos;re hunting for KY16 flats for 2nd year or beyond.
+          </p>
+        </div>
       </div>
     </main>
   );
