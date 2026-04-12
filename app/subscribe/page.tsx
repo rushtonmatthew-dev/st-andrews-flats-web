@@ -62,8 +62,26 @@ export default function SubscribePage() {
             </svg>
           </div>
           <h1 className="text-2xl font-bold text-gray-900 mb-3">Check your inbox</h1>
-          <p className="text-gray-600">
-            We sent a confirmation link to <strong>{email}</strong>. Click it to activate your alerts.
+          <p className="text-gray-600 mb-4">
+            We&apos;ve sent a confirmation link to <strong>{email}</strong>. Click it to activate your alerts.
+          </p>
+          <p className="text-sm text-gray-500 mb-4">
+            While you wait, check out the{" "}
+            <Link href="/analytics" className="text-blue-600 underline">
+              market insights page
+            </Link>{" "}
+            to see when flats typically come to market.
+          </p>
+          <p className="text-sm text-gray-400">
+            Know someone else hunting for a flat?{" "}
+            <a
+              href="https://www.standrewsflats.uk"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="underline hover:text-gray-600"
+            >
+              Share this link with them →
+            </a>
           </p>
         </div>
       </main>
@@ -191,6 +209,12 @@ export default function SubscribePage() {
                 />
               </div>
             </div>
+            <p className="text-xs text-gray-400 mt-2">
+              Typical St Andrews student flats: £800–£1,400/month for a 3-bed. Leave blank for no limit.
+            </p>
+            <p className="text-xs text-gray-400 mt-1">
+              Most students share 3–5 bedroom flats. Solo studios from ~£600/month.
+            </p>
           </div>
 
           {status === "error" && (
