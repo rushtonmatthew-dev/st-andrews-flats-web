@@ -14,7 +14,7 @@ export default function SiteNav() {
           href="/"
           className="text-sm font-semibold text-gray-900 tracking-tight hover:text-blue-600 transition-colors"
         >
-          standrewsflats.uk
+          St Andrews Flats
         </Link>
 
         <nav className="flex items-center gap-5 text-sm text-gray-500">

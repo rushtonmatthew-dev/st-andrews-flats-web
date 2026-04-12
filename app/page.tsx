@@ -26,8 +26,7 @@ export const metadata: Metadata = {
 
 export default function Home() {
   return (
-    <>
-      <main className="flex flex-col items-center justify-center min-h-screen px-4 py-16">
+    <main className="flex flex-col items-center justify-center min-h-screen px-4 py-16">
         <div className="max-w-xl w-full">
           <div className="mb-10">
             <span className="inline-block bg-blue-100 text-blue-700 text-xs font-semibold px-3 py-1 rounded-full mb-4 tracking-wide uppercase">
@@ -92,12 +91,6 @@ export default function Home() {
             Free. No account needed. Unsubscribe any time.
           </p>
         </div>
-      </main>
-      <footer className="w-full text-center py-6 text-xs text-gray-400">
-        <a href="/landlords" className="underline hover:text-gray-600">
-          Are you a landlord or letting agent?
-        </a>
-      </footer>
-    </>
+    </main>
   );
 }

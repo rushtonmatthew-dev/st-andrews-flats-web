@@ -11,7 +11,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${BASE}/agents`,   lastModified: new Date(), changeFrequency: "monthly", priority: 0.6 },
     { url: `${BASE}/guide`,    lastModified: new Date(), changeFrequency: "monthly", priority: 0.7 },
     { url: `${BASE}/blog`,     lastModified: new Date(), changeFrequency: "monthly", priority: 0.6 },
-    { url: `${BASE}/blog/best-streets-st-andrews`,      lastModified: new Date(), changeFrequency: "monthly", priority: 0.5 },
-    { url: `${BASE}/blog/housing-timeline-st-andrews`,  lastModified: new Date(), changeFrequency: "monthly", priority: 0.5 },
+    { url: `${BASE}/blog/best-streets-st-andrews`,        lastModified: new Date(), changeFrequency: "monthly", priority: 0.5 },
+    { url: `${BASE}/blog/housing-timeline-st-andrews`,    lastModified: new Date(), changeFrequency: "monthly", priority: 0.5 },
+    { url: `${BASE}/blog/second-year-housing-scramble`,   lastModified: new Date(), changeFrequency: "monthly", priority: 0.6 },
+    { url: `${BASE}/blog/parents-guide-student-housing`,  lastModified: new Date(), changeFrequency: "monthly", priority: 0.5 },
   ];
 }
