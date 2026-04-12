@@ -5,23 +5,23 @@ import "./globals.css";
 const geist = Geist({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "St Andrews Student Flats & Letting Alerts | standrewsflats.uk",
+  title: "St Andrews Letting Alerts — Be First to Know | standrewsflats.uk",
   description:
-    "Free letting alerts for St Andrews University students. We monitor 6 agents every 15 minutes — get emailed the moment a new flat appears.",
+    "Get instant alerts when St Andrews student flats appear on Rightmove, Studentpad, DJ Alexander and more. Free, no account needed. KY16 listings checked every 15 minutes.",
   metadataBase: new URL("https://standrewsflats.uk"),
   openGraph: {
     type: "website",
     url: "https://standrewsflats.uk",
-    title: "St Andrews Student Flats & Letting Alerts",
+    title: "St Andrews Letting Alerts — Be First to Know",
     description:
-      "Free letting alerts for St Andrews University students. We monitor 6 agents every 15 minutes — get emailed the moment a new flat appears.",
+      "Get instant alerts when St Andrews student flats appear on Rightmove, Studentpad, DJ Alexander and more. Free, no account needed. KY16 listings checked every 15 minutes.",
     siteName: "standrewsflats.uk",
   },
   twitter: {
     card: "summary",
-    title: "St Andrews Student Flats & Letting Alerts",
+    title: "St Andrews Letting Alerts — Be First to Know",
     description:
-      "Free letting alerts for St Andrews University students. We monitor 6 agents every 15 minutes — get emailed the moment a new flat appears.",
+      "Get instant alerts when St Andrews student flats appear on Rightmove, Studentpad, DJ Alexander and more. Free, no account needed. KY16 listings checked every 15 minutes.",
   },
 };
 
