@@ -21,6 +21,9 @@ export default function SiteNav() {
           <Link href="/analytics" className="hover:text-gray-900 transition-colors">
             Market insights
           </Link>
+          <Link href="/blog" className="hover:text-gray-900 transition-colors">
+            Blog
+          </Link>
           <Link
             href="/subscribe"
             className="bg-blue-600 text-white px-4 py-1.5 rounded-full font-medium hover:bg-blue-700 transition-colors text-xs"
