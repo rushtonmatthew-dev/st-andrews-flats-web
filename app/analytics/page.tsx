@@ -3,7 +3,7 @@ import Link from "next/link";
 import { getAnalyticsData, getStreetCostData, type AnalyticsData, type StreetCostEntry } from "@/lib/analytics";
 import { WeeklyChart, DayOfWeekChart, HourChart, AgentChart, StreetHeatMap } from "./charts";
 
-export const revalidate = 900;
+export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
   title: "St Andrews Letting Market Data — When do flats come to market?",
