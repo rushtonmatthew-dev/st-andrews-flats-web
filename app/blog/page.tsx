@@ -10,6 +10,13 @@ export const metadata: Metadata = {
 
 const posts = [
   {
+    slug: "st-andrews-rental-scams",
+    title: "St Andrews Rental Scams: What Students Lose Every Year (And How Not To Be Next)",
+    date: "April 2025",
+    excerpt:
+      "Three St Andrews students lost a combined £12,000 to housing scams in a single year. Here's exactly how the scams work, the red flags to spot, and the steps that protect you.",
+  },
+  {
     slug: "parents-guide-student-housing",
     title: "A Parent's Guide to Student Housing in St Andrews",
     date: "April 2025",
