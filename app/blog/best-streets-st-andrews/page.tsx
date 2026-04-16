@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 
 export const metadata: Metadata = {
@@ -7,6 +8,9 @@ export const metadata: Metadata = {
     "Which streets in St Andrews are best for student flats? From North Street to Lade Braes — a practical breakdown for 2nd, 3rd, and 4th-year students.",
   alternates: { canonical: "https://www.standrewsflats.uk/blog/best-streets-st-andrews" },
 };
+
+const COVER_IMAGE = "/images/blog/best-streets-cover.jpg";
+const COVER_IMAGE_ALT = "North Street in St Andrews on a sunny day";
 
 export default function BestStreetsPost() {
   return (
@@ -20,53 +24,66 @@ export default function BestStreetsPost() {
         <h1 className="text-3xl font-bold text-gray-900 mb-3">
           Best Streets for Students in St Andrews
         </h1>
-        <p className="text-lg text-gray-500 leading-relaxed mb-10">
+        <p className="text-lg text-gray-500 leading-relaxed mb-8">
           St Andrews is a small town — but where you live still makes a big difference to your day-to-day life and your monthly rent. Here&apos;s how the main areas break down.
         </p>
 
-        <div className="space-y-6">
+        {COVER_IMAGE && (
+          <div className="relative w-full mb-8 overflow-hidden rounded-xl" style={{ maxHeight: "400px" }}>
+            <Image
+              src={COVER_IMAGE}
+              alt={COVER_IMAGE_ALT}
+              width={1200}
+              height={675}
+              className="w-full object-cover"
+              style={{ maxHeight: "400px" }}
+            />
+          </div>
+        )}
 
-          <section className="bg-white rounded-xl border border-gray-200 p-6">
-            <h2 className="text-xl font-semibold text-gray-900 mb-3">North Street &amp; South Street</h2>
-            <p className="text-gray-600 leading-relaxed mb-3">
+        <div className="space-y-8">
+
+          <section>
+            <h2 className="text-[1.375rem] font-bold text-gray-900 mb-3">North Street &amp; South Street</h2>
+            <p className="text-gray-700 leading-7 mb-4">
               The two main streets running through the heart of St Andrews. Living here puts you within a 5-minute walk of the main university buildings, the library, and most of the good cafés and restaurants.
             </p>
-            <p className="text-gray-600 leading-relaxed mb-3">
+            <p className="text-gray-700 leading-7 mb-4">
               These are the most prestigious student addresses in town — and the most expensive. Expect to pay a noticeable premium over equivalent flats a 10-minute walk away.
             </p>
-            <p className="text-gray-600 leading-relaxed">
-              <strong className="text-gray-700">Best for:</strong> 4th-year students who want maximum convenience and don&apos;t mind paying for it. Less practical for 2nd years on a tight budget.
+            <p className="text-gray-700 leading-7">
+              <strong className="text-gray-800">Best for:</strong> 4th-year students who want maximum convenience and don&apos;t mind paying for it. Less practical for 2nd years on a tight budget.
             </p>
           </section>
 
-          <section className="bg-white rounded-xl border border-gray-200 p-6">
-            <h2 className="text-xl font-semibold text-gray-900 mb-3">Murray Park &amp; The Scores</h2>
-            <p className="text-gray-600 leading-relaxed mb-3">
+          <section>
+            <h2 className="text-[1.375rem] font-bold text-gray-900 mb-3">Murray Park &amp; The Scores</h2>
+            <p className="text-gray-700 leading-7 mb-4">
               These quieter streets run along the clifftop and offer some of the best views in town — the North Sea on one side, the Old Course on the other. Properties here range from converted townhouses to modern flats.
             </p>
-            <p className="text-gray-600 leading-relaxed mb-3">
+            <p className="text-gray-700 leading-7 mb-4">
               Prices are slightly below North/South Street but still above average. The area attracts a mix of older students and postgraduates.
             </p>
-            <p className="text-gray-600 leading-relaxed">
-              <strong className="text-gray-700">Best for:</strong> 3rd and 4th years who want a quieter setting without sacrificing centrality.
+            <p className="text-gray-700 leading-7">
+              <strong className="text-gray-800">Best for:</strong> 3rd and 4th years who want a quieter setting without sacrificing centrality.
             </p>
           </section>
 
-          <section className="bg-white rounded-xl border border-gray-200 p-6">
-            <h2 className="text-xl font-semibold text-gray-900 mb-3">Lade Braes &amp; Argyle Street</h2>
-            <p className="text-gray-600 leading-relaxed mb-3">
+          <section>
+            <h2 className="text-[1.375rem] font-bold text-gray-900 mb-3">Lade Braes &amp; Argyle Street</h2>
+            <p className="text-gray-700 leading-7 mb-4">
               The best-value area for students. Lade Braes runs along a small river walk — it&apos;s genuinely pleasant, and the 10-minute walk into town isn&apos;t a hardship once you&apos;re used to it. Argyle Street and the surrounding roads are solidly residential with larger houses and flats than you&apos;ll find in the centre.
             </p>
-            <p className="text-gray-600 leading-relaxed mb-3">
+            <p className="text-gray-700 leading-7 mb-4">
               This is where most 3rd-year students end up — big enough groups to fill a 4- or 5-bedroom house, lower rent per person, and still perfectly walkable to lectures.
             </p>
-            <p className="text-gray-600 leading-relaxed">
-              <strong className="text-gray-700">Best for:</strong> Groups of 3–5 students in their 2nd or 3rd year looking for the best value in the KY16 postcode.
+            <p className="text-gray-700 leading-7">
+              <strong className="text-gray-800">Best for:</strong> Groups of 3–5 students in their 2nd or 3rd year looking for the best value in the KY16 postcode.
             </p>
           </section>
 
-          <section className="bg-white rounded-xl border border-gray-200 p-6">
-            <h2 className="text-xl font-semibold text-gray-900 mb-3">What to expect to pay by area</h2>
+          <section>
+            <h2 className="text-[1.375rem] font-bold text-gray-900 mb-3">What to expect to pay by area</h2>
             <div className="overflow-x-auto">
               <table className="w-full text-sm">
                 <thead>

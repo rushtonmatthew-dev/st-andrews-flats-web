@@ -1,12 +1,14 @@
 "use client";
 
-import { useState } from "react";
+import { useState, Suspense } from "react";
+import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 
 type Status = "idle" | "loading" | "done" | "already" | "error";
 
-export default function SubscribePage() {
-  const [email, setEmail] = useState("");
+function SubscribeForm() {
+  const searchParams = useSearchParams();
+  const [email, setEmail] = useState(searchParams.get("email") ?? "");
   const [subType, setSubType] = useState<"both" | "instant" | "daily">("both");
   const [maxPrice, setMaxPrice] = useState("");
   const [minBeds, setMinBeds] = useState("");
@@ -235,5 +237,25 @@ export default function SubscribePage() {
         </form>
       </div>
     </main>
+  );
+}
+
+export default function SubscribePage() {
+  return (
+    <>
+      <header className="w-full border-b border-gray-100 bg-white sticky top-0 z-10">
+        <div className="max-w-xl mx-auto px-4 py-3">
+          <Link
+            href="/"
+            className="text-sm font-semibold text-gray-900 tracking-tight hover:text-blue-600 transition-colors"
+          >
+            St Andrews Flats
+          </Link>
+        </div>
+      </header>
+      <Suspense>
+        <SubscribeForm />
+      </Suspense>
+    </>
   );
 }

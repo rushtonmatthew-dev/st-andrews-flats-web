@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 
 export const metadata: Metadata = {
@@ -7,6 +8,9 @@ export const metadata: Metadata = {
     "Three St Andrews students lost a combined £12,000 to housing scams in a single year. Here's exactly how the scams work, the red flags to spot, and the steps that protect you.",
   alternates: { canonical: "https://www.standrewsflats.uk/blog/st-andrews-rental-scams" },
 };
+
+const COVER_IMAGE = "/images/blog/rental-scams-cover.jpg";
+const COVER_IMAGE_ALT = "A student looking at a letting agent window display in St Andrews";
 
 export default function RentalScamsPost() {
   return (
@@ -20,53 +24,66 @@ export default function RentalScamsPost() {
         <h1 className="text-3xl font-bold text-gray-900 mb-3">
           St Andrews Rental Scams: What Students Lose Every Year (And How Not To Be Next)
         </h1>
-        <p className="text-lg text-gray-500 leading-relaxed mb-10">
+        <p className="text-lg text-gray-500 leading-relaxed mb-8">
           Three students. One year. Around £12,000 gone. The desperation St Andrews&apos; housing crisis
           creates is exactly what scammers exploit — here&apos;s how to protect yourself.
         </p>
 
-        <div className="space-y-6">
+        {COVER_IMAGE && (
+          <div className="relative w-full mb-8 overflow-hidden rounded-xl" style={{ maxHeight: "400px" }}>
+            <Image
+              src={COVER_IMAGE}
+              alt={COVER_IMAGE_ALT}
+              width={1200}
+              height={675}
+              className="w-full object-cover"
+              style={{ maxHeight: "400px" }}
+            />
+          </div>
+        )}
 
-          <section className="bg-white rounded-xl border border-gray-200 p-6">
-            <h2 className="text-xl font-semibold text-gray-900 mb-3">Why St Andrews students are unusually vulnerable</h2>
-            <p className="text-gray-600 leading-relaxed mb-3">
+        <div className="blog-post-body space-y-8">
+
+          <section>
+            <h2 className="text-[1.375rem] font-bold text-gray-900 mb-3">Why St Andrews students are unusually vulnerable</h2>
+            <p className="text-gray-700 leading-7 mb-4">
               Most university cities have slack in their housing markets. St Andrews does not.
             </p>
-            <p className="text-gray-600 leading-relaxed mb-3">
+            <p className="text-gray-700 leading-7 mb-4">
               The town has a population of around 20,000 — more than half of them students. Fife Council&apos;s cap on
               Houses in Multiple Occupation (HMOs) limits the supply of shared student housing. Holiday lets and Airbnb
               have swallowed up properties that used to be long-term rentals. The nearest alternative accommodation hub
               is Dundee, 14 miles away.
             </p>
-            <p className="text-gray-600 leading-relaxed mb-3">
+            <p className="text-gray-700 leading-7 mb-4">
               The result: when a good flat appears, it can be gone within 24–48 hours. Students know this. And when
               you&apos;re watching friends secure properties while you still have nothing, your judgement about what&apos;s
               a reasonable request from a landlord starts to slip.
             </p>
-            <p className="text-gray-600 leading-relaxed">
+            <p className="text-gray-700 leading-7">
               Scammers in St Andrews don&apos;t need to be sophisticated. They just need to find someone who is tired,
               anxious, and slightly behind.
             </p>
           </section>
 
-          <section className="bg-white rounded-xl border border-gray-200 p-6">
-            <h2 className="text-xl font-semibold text-gray-900 mb-4">How the scams work</h2>
+          <section>
+            <h2 className="text-[1.375rem] font-bold text-gray-900 mb-4">How the scams work</h2>
 
             <div className="space-y-6">
               <div>
                 <h3 className="font-semibold text-gray-800 mb-2">The phantom listing</h3>
-                <p className="text-gray-600 leading-relaxed mb-3">
+                <p className="text-gray-700 leading-7 mb-3">
                   The most common scam is simple: a property is advertised at a below-market price on a platform with
                   little verification — Facebook Marketplace, Gumtree, SpareRoom, or even a flyer on a noticeboard.
                   Sometimes the photos are stolen from a real letting agent&apos;s listing. Sometimes they&apos;re from a
                   completely different city.
                 </p>
-                <p className="text-gray-600 leading-relaxed mb-3">
+                <p className="text-gray-700 leading-7 mb-3">
                   The &quot;landlord&quot; explains they&apos;re currently abroad (working with a charity, on a research project,
                   in the military) but can arrange everything remotely. They ask for a holding deposit — usually
                   £200–£500 — to &quot;secure the property while they return.&quot; You transfer the money. They disappear.
                 </p>
-                <p className="text-gray-600 leading-relaxed text-sm bg-gray-50 rounded-lg p-3">
+                <p className="text-gray-600 leading-7 text-sm bg-gray-50 rounded-lg p-3">
                   <strong>Variation:</strong> they arrange a viewing, but the person who shows you round is not the
                   owner and has no authority to let the property. You pay a deposit. The real owner has no idea.
                 </p>
@@ -74,7 +91,7 @@ export default function RentalScamsPost() {
 
               <div>
                 <h3 className="font-semibold text-gray-800 mb-2">The fake agent</h3>
-                <p className="text-gray-600 leading-relaxed">
+                <p className="text-gray-700 leading-7">
                   Less common but more damaging financially. A convincing-looking website, professional email address,
                   and a portfolio of real-looking St Andrews properties. The &quot;agent&quot; asks for a full month&apos;s rent
                   upfront plus a deposit to proceed. Once paid, the website disappears.
@@ -83,7 +100,7 @@ export default function RentalScamsPost() {
 
               <div>
                 <h3 className="font-semibold text-gray-800 mb-2">The illegitimate landlord</h3>
-                <p className="text-gray-600 leading-relaxed">
+                <p className="text-gray-700 leading-7">
                   This one is legal-grey and more insidious. The landlord exists, the property exists, but the landlord
                   is not registered on the Scottish Landlord Register — a legal requirement in Scotland. You move in.
                   Then you discover the property has serious maintenance issues, no deposit protection, and a landlord
@@ -93,8 +110,9 @@ export default function RentalScamsPost() {
             </div>
           </section>
 
+          {/* Callout card — keep card style for warning/red-flag blocks */}
           <section className="bg-white rounded-xl border border-gray-200 p-6">
-            <h2 className="text-xl font-semibold text-gray-900 mb-4">Red flags to watch for in St Andrews</h2>
+            <h2 className="text-[1.375rem] font-bold text-gray-900 mb-4">Red flags to watch for in St Andrews</h2>
 
             <div className="space-y-5">
               {[
@@ -132,8 +150,8 @@ export default function RentalScamsPost() {
             </div>
           </section>
 
-          <section className="bg-white rounded-xl border border-gray-200 p-6">
-            <h2 className="text-xl font-semibold text-gray-900 mb-2">How to protect yourself: the checklist</h2>
+          <section>
+            <h2 className="text-[1.375rem] font-bold text-gray-900 mb-2">How to protect yourself: the checklist</h2>
             <p className="text-gray-500 text-sm mb-5">Before you pay anything to anyone, work through this list.</p>
 
             <ol className="space-y-4">
@@ -174,9 +192,9 @@ export default function RentalScamsPost() {
             </ol>
           </section>
 
-          <section className="bg-white rounded-xl border border-gray-200 p-6">
-            <h2 className="text-xl font-semibold text-gray-900 mb-3">Where to find legitimate properties</h2>
-            <p className="text-gray-600 leading-relaxed mb-4">
+          <section>
+            <h2 className="text-[1.375rem] font-bold text-gray-900 mb-3">Where to find legitimate properties</h2>
+            <p className="text-gray-700 leading-7 mb-4">
               The safest route to a St Andrews flat is through the established, monitored letting agents. This doesn&apos;t
               mean the market is easy — it&apos;s still fast and competitive — but it does mean you&apos;re dealing with
               registered businesses that have legal obligations to you.
@@ -195,7 +213,7 @@ export default function RentalScamsPost() {
                 </li>
               ))}
             </ul>
-            <p className="text-gray-600 leading-relaxed text-sm">
+            <p className="text-gray-700 leading-7 text-sm">
               The problem is not finding these sources — it&apos;s monitoring all of them simultaneously during the
               January–February listing rush while also attending lectures, revising, and managing the rest of your life.
               That&apos;s what we built{" "}
@@ -204,8 +222,8 @@ export default function RentalScamsPost() {
             </p>
           </section>
 
-          <section className="bg-white rounded-xl border border-gray-200 p-6">
-            <h2 className="text-xl font-semibold text-gray-900 mb-3">If you think you&apos;ve been scammed</h2>
+          <section>
+            <h2 className="text-[1.375rem] font-bold text-gray-900 mb-3">If you think you&apos;ve been scammed</h2>
             <p className="text-gray-500 text-sm mb-4">Act quickly.</p>
             <ol className="space-y-3">
               {[
@@ -227,8 +245,9 @@ export default function RentalScamsPost() {
             </p>
           </section>
 
+          {/* Callout card — keep card style for the "short version" summary */}
           <section className="bg-white rounded-xl border border-gray-200 p-6">
-            <h2 className="text-xl font-semibold text-gray-900 mb-3">The short version</h2>
+            <h2 className="text-[1.375rem] font-bold text-gray-900 mb-3">The short version</h2>
             <ul className="space-y-2">
               {[
                 "St Andrews' housing crisis creates the exact conditions scammers need: desperate students, fast-moving market, fear of missing out.",

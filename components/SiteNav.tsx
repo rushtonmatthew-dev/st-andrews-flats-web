@@ -19,10 +19,10 @@ export default function SiteNav() {
 
         <nav className="flex items-center gap-5 text-sm text-gray-500">
           <Link href="/analytics" className="hover:text-gray-900 transition-colors">
-            Market insights
+            Live market data
           </Link>
           <Link href="/blog" className="hover:text-gray-900 transition-colors">
-            Blog
+            Student guides
           </Link>
           <Link
             href="/subscribe"

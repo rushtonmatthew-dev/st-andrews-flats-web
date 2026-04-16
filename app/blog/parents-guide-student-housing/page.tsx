@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 
 export const metadata: Metadata = {
@@ -7,6 +8,9 @@ export const metadata: Metadata = {
     "What parents need to know about the St Andrews private rental market — costs, timelines, HMO rules, rental fraud, and how to help your child secure a flat.",
   alternates: { canonical: "https://www.standrewsflats.uk/blog/parents-guide-student-housing" },
 };
+
+const COVER_IMAGE = "/images/blog/parents-guide-cover.jpg";
+const COVER_IMAGE_ALT = "St Andrews town viewed from the castle ruins";
 
 export default function ParentsGuidePost() {
   return (
@@ -20,34 +24,48 @@ export default function ParentsGuidePost() {
         <h1 className="text-3xl font-bold text-gray-900 mb-3">
           A Parent&apos;s Guide to Student Housing in St Andrews
         </h1>
-        <p className="text-lg text-gray-500 leading-relaxed mb-10">
+        <p className="text-lg text-gray-500 leading-relaxed mb-8">
           St Andrews has one of the most unusual, most competitive, and most expensive private rental markets of any university town in the UK — and it operates on a timeline that most parents find baffling. Here&apos;s what it means for your family.
         </p>
 
-        <div className="space-y-6">
+        {COVER_IMAGE && (
+          <div className="relative w-full mb-8 overflow-hidden rounded-xl" style={{ maxHeight: "400px" }}>
+            <Image
+              src={COVER_IMAGE}
+              alt={COVER_IMAGE_ALT}
+              width={1200}
+              height={675}
+              className="w-full object-cover"
+              style={{ maxHeight: "400px" }}
+            />
+          </div>
+        )}
 
-          <section className="bg-white rounded-xl border border-gray-200 p-6">
-            <h2 className="text-xl font-semibold text-gray-900 mb-3">The structural problem in plain terms</h2>
-            <p className="text-gray-600 leading-relaxed mb-3">
+        <div className="space-y-8">
+
+          <section>
+            <h2 className="text-[1.375rem] font-bold text-gray-900 mb-3">The structural problem in plain terms</h2>
+            <p className="text-gray-700 leading-7 mb-4">
               The University of St Andrews has approximately 10,500 students. The town has a total population of around 20,000 — meaning students make up nearly 60% of everyone who lives there. The university houses roughly 4,100 students directly in managed halls and residences. First-year undergraduates are guaranteed a place. After that, your child is on their own.
             </p>
-            <p className="text-gray-600 leading-relaxed mb-3">
+            <p className="text-gray-700 leading-7 mb-4">
               That leaves around 6,000 to 6,500 students competing for private housing in a small coastal town — one with fewer than 7,000 total dwellings, constrained by geography, a controversial planning cap on student house shares, and an increasingly active short-term holiday let market.
             </p>
-            <p className="text-gray-600 leading-relaxed">
+            <p className="text-gray-700 leading-7">
               In summer 2022, this imbalance reached crisis point. Up to 400 students arrived in St Andrews without anywhere to live. Some slept in cars. The university arranged emergency accommodation 14 miles away in Dundee. A survey found that 86% of the students placed there reported negative impacts on their mental health, and 96% of first-years said it seriously harmed their studies.
             </p>
           </section>
 
+          {/* Callout — keep card style for this press quote block */}
           <section className="bg-amber-50 border border-amber-200 rounded-xl p-6">
             <p className="text-amber-800 font-medium leading-relaxed">
               The <em>Scotsman</em> reported parents prepared to &quot;fly to St Andrews and pay cash for a property.&quot; One parent told the paper they were considering withdrawing their child from the university entirely. You are right to take this seriously.
             </p>
           </section>
 
-          <section className="bg-white rounded-xl border border-gray-200 p-6">
-            <h2 className="text-xl font-semibold text-gray-900 mb-3">The timeline your child is working against</h2>
-            <p className="text-gray-600 leading-relaxed mb-4">
+          <section>
+            <h2 className="text-[1.375rem] font-bold text-gray-900 mb-3">The timeline your child is working against</h2>
+            <p className="text-gray-700 leading-7 mb-4">
               The private letting market in St Andrews operates much earlier than most UK cities.
             </p>
             <div className="space-y-4">
@@ -104,9 +122,9 @@ export default function ParentsGuidePost() {
             </p>
           </section>
 
-          <section className="bg-white rounded-xl border border-gray-200 p-6">
-            <h2 className="text-xl font-semibold text-gray-900 mb-3">What private renting costs in St Andrews</h2>
-            <p className="text-gray-600 leading-relaxed mb-4">
+          <section>
+            <h2 className="text-[1.375rem] font-bold text-gray-900 mb-3">What private renting costs in St Andrews</h2>
+            <p className="text-gray-700 leading-7 mb-4">
               St Andrews is the most expensive student rental market in Scotland — and among the most expensive in the entire UK outside London.
             </p>
             <div className="overflow-x-auto mb-4">
@@ -133,25 +151,25 @@ export default function ParentsGuidePost() {
                 </tbody>
               </table>
             </div>
-            <p className="text-gray-600 leading-relaxed mb-3 text-sm">
+            <p className="text-gray-700 leading-7 mb-4 text-sm">
               The average monthly rent across all St Andrews property types was £1,620 in 2023 — <strong>60% higher than Edinburgh</strong>. NUS Scotland research found average student rent consumes <strong>88% of the maximum Scottish maintenance loan</strong>, leaving approximately £22 per week for everything else.
             </p>
-            <p className="text-gray-600 leading-relaxed text-sm">
+            <p className="text-gray-700 leading-7 text-sm">
               For many families, a parental contribution to rent is not optional — it is the structural reality of studying in St Andrews.
             </p>
 
             <h3 className="font-semibold text-gray-800 mt-5 mb-2">Bills and council tax</h3>
-            <p className="text-gray-600 leading-relaxed text-sm">
+            <p className="text-gray-700 leading-7 text-sm">
               Most student lets come unfurnished with bills on top. Students are <strong>exempt from council tax</strong> provided everyone in the property is a full-time student — but the exemption must be formally applied for with Fife Council, and one non-student resident will make the entire household liable.
             </p>
           </section>
 
-          <section className="bg-white rounded-xl border border-gray-200 p-6">
-            <h2 className="text-xl font-semibold text-gray-900 mb-3">HMO licences — and why they matter</h2>
-            <p className="text-gray-600 leading-relaxed mb-3">
+          <section>
+            <h2 className="text-[1.375rem] font-bold text-gray-900 mb-3">HMO licences — and why they matter</h2>
+            <p className="text-gray-700 leading-7 mb-4">
               In Scotland, any property shared by three or more unrelated people requires an <strong>HMO (House in Multiple Occupation) licence</strong> from the local council — a legal safeguard covering fire safety, gas and electrical certification, and minimum space standards.
             </p>
-            <p className="text-gray-600 leading-relaxed mb-3">
+            <p className="text-gray-700 leading-7 mb-4">
               Before your child signs any tenancy agreement for a shared property:
             </p>
             <ul className="space-y-2 text-sm text-gray-600">
@@ -161,11 +179,11 @@ export default function ParentsGuidePost() {
             </ul>
           </section>
 
-          <section className="bg-white rounded-xl border border-gray-200 p-6">
-            <h2 className="text-xl font-semibold text-gray-900 mb-4">How to protect your child (and your money)</h2>
+          <section>
+            <h2 className="text-[1.375rem] font-bold text-gray-900 mb-4">How to protect your child (and your money)</h2>
 
             <h3 className="font-semibold text-gray-800 mb-2">Spotting rental fraud</h3>
-            <p className="text-gray-600 leading-relaxed mb-3 text-sm">
+            <p className="text-gray-700 leading-7 mb-3 text-sm">
               Rental scams are a documented problem in St Andrews. Three students in a single reported period lost a combined approximately £12,000 to fraudsters posing as landlords, collecting deposits for properties they did not own, and disappearing.
             </p>
             <ul className="space-y-2 text-sm text-gray-600 mb-5">
@@ -175,31 +193,31 @@ export default function ParentsGuidePost() {
             </ul>
 
             <h3 className="font-semibold text-gray-800 mb-2">Lease checking</h3>
-            <p className="text-gray-600 leading-relaxed mb-4 text-sm">
+            <p className="text-gray-700 leading-7 mb-4 text-sm">
               The Students&apos; Association at St Andrews operates a <strong>lease-checking service at no cost</strong>. This is worth using before signing. Common issues include excessive deposit clauses, unclear break provisions, and ambiguous responsibility for repairs.
             </p>
 
             <h3 className="font-semibold text-gray-800 mb-2">Guarantor arrangements</h3>
-            <p className="text-gray-600 leading-relaxed text-sm">
+            <p className="text-gray-700 leading-7 text-sm">
               Most letting agents will require a UK-based guarantor for student tenancies — typically a parent or guardian. This means you are legally liable if your child defaults on rent. Read the guarantor agreement carefully before signing. If you are based overseas, some agents accept international guarantors; others do not, and you may need to look at rent guarantee insurance or larger upfront payment arrangements.
             </p>
           </section>
 
-          <section className="bg-white rounded-xl border border-gray-200 p-6">
-            <h2 className="text-xl font-semibold text-gray-900 mb-3">What the university does — and doesn&apos;t — provide</h2>
-            <p className="text-gray-600 leading-relaxed mb-3">
+          <section>
+            <h2 className="text-[1.375rem] font-bold text-gray-900 mb-3">What the university does — and doesn&apos;t — provide</h2>
+            <p className="text-gray-700 leading-7 mb-4">
               The university&apos;s accommodation guarantee covers first-year undergraduates, care-experienced students throughout their studies, and some international postgraduates on a limited basis. <strong>Returning undergraduates have no guarantee.</strong>
             </p>
-            <p className="text-gray-600 leading-relaxed mb-3">
+            <p className="text-gray-700 leading-7 mb-4">
               The university does operate: a <strong>direct leasing scheme</strong> managing some private properties (limited supply, worth asking about in January); <strong>Studentpad</strong> (standrewsstudentpad.co.uk), the official private accommodation search platform; and a <strong>ballot system</strong> for university-managed private houses — described in the Students&apos; Association&apos;s own guide as &quot;purely down to luck.&quot;
             </p>
-            <p className="text-gray-600 leading-relaxed text-sm">
+            <p className="text-gray-700 leading-7 text-sm">
               University hall fees range from approximately <strong>£6,246/year</strong> (self-catered standard) to <strong>£12,976/year</strong> (catered en-suite), with a proposed 7.5% increase for 2025–26 negotiated down to 2.7% after student lobbying.
             </p>
           </section>
 
-          <section className="bg-white rounded-xl border border-gray-200 p-6">
-            <h2 className="text-xl font-semibold text-gray-900 mb-3">What you can practically do now</h2>
+          <section>
+            <h2 className="text-[1.375rem] font-bold text-gray-900 mb-3">What you can practically do now</h2>
             <ol className="space-y-3">
               {[
                 { n: 1, text: "Have the conversation early. Ask your child in October of their first year whether they've started thinking about second-year housing and who they want to live with. The answer should be yes." },

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 
 export const metadata: Metadata = {
@@ -7,6 +8,9 @@ export const metadata: Metadata = {
     "When should St Andrews students start looking for a flat? A month-by-month guide to the St Andrews rental market for 2nd, 3rd, and 4th year.",
   alternates: { canonical: "https://www.standrewsflats.uk/blog/housing-timeline-st-andrews" },
 };
+
+const COVER_IMAGE = "/images/blog/housing-timeline-cover.jpg";
+const COVER_IMAGE_ALT = "A calendar on a desk next to a set of house keys";
 
 export default function HousingTimelinePost() {
   return (
@@ -20,27 +24,40 @@ export default function HousingTimelinePost() {
         <h1 className="text-3xl font-bold text-gray-900 mb-3">
           St Andrews Housing Timeline: When to Start Looking
         </h1>
-        <p className="text-lg text-gray-500 leading-relaxed mb-10">
+        <p className="text-lg text-gray-500 leading-relaxed mb-8">
           The St Andrews rental market is unusually competitive for a town of its size. Most students discover this too late. Here&apos;s what the calendar actually looks like.
         </p>
 
-        <div className="space-y-6">
+        {COVER_IMAGE && (
+          <div className="relative w-full mb-8 overflow-hidden rounded-xl" style={{ maxHeight: "400px" }}>
+            <Image
+              src={COVER_IMAGE}
+              alt={COVER_IMAGE_ALT}
+              width={1200}
+              height={675}
+              className="w-full object-cover"
+              style={{ maxHeight: "400px" }}
+            />
+          </div>
+        )}
 
-          <section className="bg-white rounded-xl border border-gray-200 p-6">
-            <h2 className="text-xl font-semibold text-gray-900 mb-3">Why the St Andrews market moves so fast</h2>
-            <p className="text-gray-600 leading-relaxed mb-3">
+        <div className="space-y-8">
+
+          <section>
+            <h2 className="text-[1.375rem] font-bold text-gray-900 mb-3">Why the St Andrews market moves so fast</h2>
+            <p className="text-gray-700 leading-7 mb-4">
               St Andrews has around 10,000 students and a permanent population of roughly 17,000. It&apos;s a small town with limited housing stock — and every year, several thousand students compete for the same pool of private lets.
             </p>
-            <p className="text-gray-600 leading-relaxed mb-3">
+            <p className="text-gray-700 leading-7 mb-4">
               Unlike larger university cities where new supply comes online constantly, St Andrews is geographically constrained. The best properties are the same ones year after year, often cycling between groups of students. Many landlords relet to the same tenants or their friends without ever advertising publicly.
             </p>
-            <p className="text-gray-600 leading-relaxed">
+            <p className="text-gray-700 leading-7">
               The result: properties that appear on the open market go within days — sometimes hours — of listing. If you&apos;re checking agents once a week, you&apos;ll miss most of them.
             </p>
           </section>
 
-          <section className="bg-white rounded-xl border border-gray-200 p-6">
-            <h2 className="text-xl font-semibold text-gray-900 mb-3">Month-by-month: the rental calendar</h2>
+          <section>
+            <h2 className="text-[1.375rem] font-bold text-gray-900 mb-3">Month-by-month: the rental calendar</h2>
             <div className="space-y-4">
               {[
                 {
@@ -94,24 +111,24 @@ export default function HousingTimelinePost() {
             </div>
           </section>
 
-          <section className="bg-white rounded-xl border border-gray-200 p-6">
-            <h2 className="text-xl font-semibold text-gray-900 mb-3">2nd year vs 3rd year vs 4th year: different timelines</h2>
+          <section>
+            <h2 className="text-[1.375rem] font-bold text-gray-900 mb-3">2nd year vs 3rd year vs 4th year: different timelines</h2>
             <div className="space-y-4">
               <div>
                 <h3 className="font-semibold text-gray-800 mb-1">2nd year</h3>
-                <p className="text-gray-600 text-sm leading-relaxed">
+                <p className="text-gray-700 leading-7 text-sm">
                   The most competitive group. Moving out of halls for the first time, often with a group of friends who haven&apos;t finalised who&apos;s living together yet. The indecision costs people — groups that agree early (September/October of 1st year) get the best flats. Groups still figuring it out in November often settle for what&apos;s left.
                 </p>
               </div>
               <div>
                 <h3 className="font-semibold text-gray-800 mb-1">3rd year</h3>
-                <p className="text-gray-600 text-sm leading-relaxed">
+                <p className="text-gray-700 leading-7 text-sm">
                   More experienced, usually more organised. Groups tend to form earlier and act faster. The advantage is knowing the market — you won&apos;t be surprised by how quick it moves. Same October–November window applies.
                 </p>
               </div>
               <div>
                 <h3 className="font-semibold text-gray-800 mb-1">4th year</h3>
-                <p className="text-gray-600 text-sm leading-relaxed">
+                <p className="text-gray-700 leading-7 text-sm">
                   Many 4th-year students stay in the same flat as the previous year — landlords often prefer to relet to known tenants. If you&apos;re not in that position, treat the timeline the same as any other year. Some 4th-year groups are also able to move faster because they&apos;re smaller (2-person flats, studios) and there&apos;s more supply at that end of the market.
                 </p>
               </div>

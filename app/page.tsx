@@ -84,6 +84,25 @@ export default async function Home() {
             and email you the moment something new hits the market — before anyone else sees it.
           </p>
 
+          {/* Hero email capture */}
+          <form action="/subscribe" method="get" className="mt-6 flex flex-col sm:flex-row gap-2">
+            <input
+              type="email"
+              name="email"
+              placeholder="your@email.com"
+              required
+              aria-label="Email address"
+              className="flex-1 border border-gray-300 rounded-lg px-4 py-3 text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            />
+            <button
+              type="submit"
+              className="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-6 py-3 rounded-lg transition-colors whitespace-nowrap"
+            >
+              Get alerts
+            </button>
+          </form>
+          <p className="text-sm text-gray-400 mt-2">Free. No account needed. Unsubscribe any time.</p>
+
           {/* Social proof */}
           <div className="flex items-center gap-2 text-sm text-gray-500 mt-6 mb-2">
             <span className="flex -space-x-1">
@@ -92,22 +111,25 @@ export default async function Home() {
               <span className="w-6 h-6 rounded-full bg-sky-400 border-2 border-white inline-block" />
             </span>
             <span>
-              {subscriberCount
+              {subscriberCount && subscriberCount >= 30
                 ? `Join ${subscriberCount}+ St Andrews students already subscribed`
-                : "Used by students across St Andrews — join them for free"}
+                : "Used by students from every year group and hall"}
             </span>
           </div>
 
           {/* Urgency callout */}
-          <p className="text-sm text-amber-700 bg-amber-50 border border-amber-200 rounded-lg px-4 py-3 mt-4">
-            <strong>Flat hunting season typically opens in October.</strong> Popular KY16 listings
-            often go within hours of appearing. Set up alerts now so you don't miss yours.
+          <p className="text-sm bg-amber-50 border border-amber-200 rounded-lg px-4 py-3 mt-4" style={{ color: "#78350F" }}>
+            <strong style={{ color: "#92400E" }}>Flat hunting season typically opens in October.</strong>{" "}
+            Popular KY16 listings often go within hours of appearing.{" "}
+            <Link href="/subscribe" style={{ color: "#92400E", textDecoration: "underline" }}>
+              Set up your alerts now →
+            </Link>
           </p>
         </div>
 
         {/* Feature list */}
         <h2 className="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-3">
-          St Andrews student accommodation — what we cover
+          What we monitor
         </h2>
         <ul className="space-y-3 mb-10">
           <li className="flex items-start gap-3 text-gray-700">
@@ -134,11 +156,8 @@ export default async function Home() {
           href="/subscribe"
           className="block w-full text-center bg-blue-600 hover:bg-blue-700 text-white font-semibold text-lg py-4 rounded-xl transition-colors"
         >
-          Set up my alerts
+          Set up alerts
         </Link>
-        <p className="text-center text-sm text-gray-400 mt-4">
-          Free. No account needed. Unsubscribe any time.
-        </p>
 
         {/* Origin story */}
         <div className="mt-10 pt-8 border-t border-gray-100 text-sm text-gray-500 leading-relaxed">
