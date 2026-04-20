@@ -11,6 +11,15 @@ export const metadata: Metadata = {
 
 const posts = [
   {
+    slug: "international-student-rights",
+    title: "Renting in St Andrews as an International Student: Your Legal Rights, Your Protections, and What Nobody Tells You",
+    date: "April 2025",
+    excerpt:
+      "Scottish tenancy law, deposit protection, HMO licensing, guarantor requirements, and fraud protection — a complete guide for international students renting in St Andrews.",
+    cover_image: "",
+    cover_image_alt: "International students walking through St Andrews town centre",
+  },
+  {
     slug: "st-andrews-rental-scams",
     title: "St Andrews Rental Scams: What Students Lose Every Year (And How Not To Be Next)",
     date: "April 2025",
