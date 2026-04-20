@@ -11,6 +11,15 @@ export const metadata: Metadata = {
 
 const posts = [
   {
+    slug: "how-to-read-student-letting-contract-st-andrews",
+    title: "How to Read a Student Letting Contract in St Andrews: What to Check Before You Sign",
+    date: "April 2026",
+    excerpt:
+      "Before you sign a St Andrews student flat contract, know exactly what to check. A practical guide to leases, deposits, HMO licences, and tenant rights.",
+    cover_image: "",
+    cover_image_alt: "",
+  },
+  {
     slug: "international-student-rights",
     title: "Renting in St Andrews as an International Student: Your Legal Rights, Your Protections, and What Nobody Tells You",
     date: "April 2025",
