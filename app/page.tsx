@@ -5,12 +5,12 @@ import { getSupabase } from "@/lib/supabase";
 export const metadata: Metadata = {
   title: "St Andrews Student Letting Alerts — Free flat alerts for St Andrews students",
   description:
-    "Free letting alerts for St Andrews University students. We check Studentpad, DJ Alexander, Lawson Thompson, Lettingweb, Standys and more every 15 minutes — and email you the moment a new flat appears.",
+    "Free letting alerts for St Andrews University students. We check Studentpad, DJ Alexander, Lawson Thompson, Lettingweb, Standys, 55Rent and more every 15 minutes — and email you the moment a new flat appears.",
   alternates: { canonical: "https://www.standrewsflats.uk/" },
   openGraph: {
     title: "St Andrews Student Letting Alerts — Free & instant",
     description:
-      "We check 6 letting agents every 15 minutes and email you the moment a new flat appears. Free, no account needed.",
+      "We check 7 letting agents every 15 minutes and email you the moment a new flat appears. Free, no account needed.",
     url: "https://www.standrewsflats.uk/",
     type: "website",
     siteName: "St Andrews Flats",
@@ -20,7 +20,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "St Andrews Student Letting Alerts — Free & instant",
     description:
-      "We check 6 letting agents every 15 minutes and email you the moment a new flat appears. Free, no account needed.",
+      "We check 7 letting agents every 15 minutes and email you the moment a new flat appears. Free, no account needed.",
     images: ["https://www.standrewsflats.uk/og-image.png"],
   },
 };
@@ -53,7 +53,7 @@ const jsonLd = {
   name: "St Andrews Flats — Letting Alerts",
   url: "https://www.standrewsflats.uk",
   description:
-    "Free letting alerts for St Andrews University students. Monitors 6 letting agents every 15 minutes.",
+    "Free letting alerts for St Andrews University students. Monitors 7 letting agents every 15 minutes.",
   applicationCategory: "Utility",
   operatingSystem: "Web",
   offers: { "@type": "Offer", price: "0", priceCurrency: "GBP" },
@@ -80,7 +80,7 @@ export default async function Home() {
             Be first to know<br />when a St Andrews<br />flat appears.
           </h1>
           <p className="text-lg text-gray-600 leading-relaxed">
-            Properties in St Andrews let within days. We check 6 letting agents every 15 minutes
+            Properties in St Andrews let within days. We check 7 letting agents every 15 minutes
             and email you the moment something new hits the market — before anyone else sees it.
           </p>
 
@@ -136,7 +136,7 @@ export default async function Home() {
             {CHECK_ICON}
             <span>
               Monitors <strong>Studentpad, DJ Alexander, Lawson Thompson, Lettingweb,
-              Standys</strong> and St Andrews Property Lets
+              Standys, 55Rent</strong> and St Andrews Property Lets
             </span>
           </li>
           {[
@@ -179,7 +179,7 @@ export default async function Home() {
               },
               {
                 q: "Which letting agents do you monitor?",
-                a: "We monitor Studentpad (the University's official private accommodation platform), DJ Alexander, Lawson Thompson, Lettingweb, Standys, and St Andrews Property Lets — all the main agents active in St Andrews.",
+                a: "We monitor Studentpad (the University's official private accommodation platform), DJ Alexander, Lawson Thompson, Lettingweb, Standys, 55Rent, and St Andrews Property Lets — all the main agents active in St Andrews.",
               },
               {
                 q: "How quickly will I be notified?",
