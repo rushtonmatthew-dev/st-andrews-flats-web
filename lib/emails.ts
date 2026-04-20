@@ -7,7 +7,7 @@ export async function sendConfirmationEmail(
   email: string,
   confirmToken: string
 ) {
-  const confirmUrl = `${BASE}/confirm?token=${confirmToken}`;
+  const confirmUrl = `${BASE}/api/confirm?token=${confirmToken}`;
 
   const html = `<!DOCTYPE html>
 <html>
