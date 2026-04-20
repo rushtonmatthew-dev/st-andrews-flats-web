@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { getSupabase } from "@/lib/supabase";
+import SuggestAgentForm from "@/components/SuggestAgentForm";
 
 export const metadata: Metadata = {
   title: "St Andrews Student Letting Alerts — Free flat alerts for St Andrews students",
@@ -178,10 +179,6 @@ export default async function Home() {
                 a: "Most letting agents in St Andrews release their annual student listings in January and February for the following September. However, mid-year listings appear throughout the year — our market data shows Thursday mornings tend to be the most active time for new listings. Set up instant alerts so you don't miss anything.",
               },
               {
-                q: "Which letting agents do you monitor?",
-                a: "We monitor Studentpad (the University's official private accommodation platform), DJ Alexander, Lawson Thompson, Lettingweb, Standys, 55Rent, and St Andrews Property Lets — all the main agents active in St Andrews.",
-              },
-              {
                 q: "How quickly will I be notified?",
                 a: "We check all sources every 15 minutes. If you choose instant alerts, you'll get an email within 15 minutes of a new listing appearing. If you choose the daily digest, you'll get a morning roundup of everything new from the previous 24 hours.",
               },
@@ -205,6 +202,22 @@ export default async function Home() {
                 <p className="px-4 pb-4 pt-1 text-sm text-gray-500 leading-relaxed">{a}</p>
               </details>
             ))}
+
+            {/* Agents FAQ — separate so we can embed the suggestion form */}
+            <details className="group border border-gray-200 rounded-lg bg-white overflow-hidden">
+              <summary className="flex items-center justify-between px-4 py-3 cursor-pointer text-sm font-medium text-gray-700 hover:bg-gray-50 list-none">
+                Which letting agents do you monitor?
+                <span className="ml-3 flex-shrink-0 text-gray-400 group-open:rotate-180 transition-transform">▾</span>
+              </summary>
+              <div className="px-4 pb-4 pt-1">
+                <p className="text-sm text-gray-500 leading-relaxed">
+                  We monitor Studentpad (the University&apos;s official private accommodation platform),
+                  DJ Alexander, Lawson Thompson, Lettingweb, Standys, 55Rent, and St Andrews Property
+                  Lets — all the main agents active in St Andrews.
+                </p>
+                <SuggestAgentForm />
+              </div>
+            </details>
           </div>
         </section>
 
