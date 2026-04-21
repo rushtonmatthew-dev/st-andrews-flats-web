@@ -109,6 +109,7 @@ export const AGENT_DISPLAY_NAMES: Record<string, string> = {
   Lettingweb:            "Lettingweb",
   Standys:               "Standys",
   StAndrewsPropertyCo:   "St Andrews Property Co",
+  "55Rent":              "55Rent",
 };
 
 export function formatAgentName(raw: string): string {
