@@ -11,6 +11,15 @@ export const metadata: Metadata = {
 
 const posts = [
   {
+    slug: "student-renter-legal-rights-st-andrews-parents-guide",
+    title: "Your Child's Legal Rights as a Student Renter in St Andrews: What Every Parent Needs to Know",
+    date: "April 2026",
+    excerpt:
+      "Parents' guide to the legal protections covering student renters in St Andrews — HMO licensing, deposits, lease terms, and what to do when things go wrong.",
+    cover_image: "",
+    cover_image_alt: "",
+  },
+  {
     slug: "how-to-read-student-letting-contract-st-andrews",
     title: "How to Read a Student Letting Contract in St Andrews: What to Check Before You Sign",
     date: "April 2026",
