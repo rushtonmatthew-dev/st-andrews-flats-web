@@ -16,8 +16,8 @@ const posts = [
     date: "April 2026",
     excerpt:
       "Parents' guide to the legal protections covering student renters in St Andrews — HMO licensing, deposits, lease terms, and what to do when things go wrong.",
-    cover_image: "",
-    cover_image_alt: "",
+    cover_image: "/images/blog/student-renter-legal-rights-st-andrews-parents-guide-cover.png",
+    cover_image_alt: "Parents helping a student move into accommodation",
   },
   {
     slug: "how-to-read-student-letting-contract-st-andrews",

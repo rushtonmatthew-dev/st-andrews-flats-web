@@ -1,4 +1,4 @@
-/* BLOG_META {"title": "Your Child's Legal Rights as a Student Renter in St Andrews: What Every Parent Needs to Know", "audience": "parents of prospective students", "angle": "rights and legal protections", "date": "2026-04-27"} */
+/* BLOG_META {"title": "Your Child's Legal Rights as a Student Renter in St Andrews: What Every Parent Needs to Know", "audience": "parents of prospective students", "angle": "rights and legal protections", "date": "2026-04-27", "cover_image": "/images/blog/student-renter-legal-rights-st-andrews-parents-guide-cover.png"} */
 import type { Metadata } from 'next'
 import BlogPost from '@/components/BlogPost'
 
@@ -118,6 +118,8 @@ export default function Page() {
       title="Your Child's Legal Rights as a Student Renter in St Andrews: What Every Parent Needs to Know"
       date="2026-04-27"
       body={body}
+      coverImage="/images/blog/student-renter-legal-rights-st-andrews-parents-guide-cover.png"
+      coverImageAlt="Your Child's Legal Rights as a Student Renter in St Andrews: What Every Parent Needs to Know"
     />
   )
 }

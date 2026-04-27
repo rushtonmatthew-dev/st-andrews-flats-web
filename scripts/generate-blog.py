@@ -14,20 +14,14 @@ import json
 import time
 import datetime
 import anthropic
+import requests
 from pathlib import Path
 
-try:
-    from google import genai as google_genai
-    GOOGLE_GENAI_AVAILABLE = True
-except ImportError:
-    GOOGLE_GENAI_AVAILABLE = False
-
 # ── Paths ─────────────────────────────────────────────────────────────────────
-REPO_ROOT   = Path(__file__).parent.parent
-INTEL_FILE  = Path(__file__).parent / "market-intel.md"
-BLOG_DIR    = REPO_ROOT / "app" / "blog"
-IMAGES_DIR  = REPO_ROOT / "public" / "images" / "blog"
-GEMINI_MODEL = os.environ.get("GEMINI_IMAGE_MODEL", "gemini-2.0-flash-preview-image-generation")
+REPO_ROOT  = Path(__file__).parent.parent
+INTEL_FILE = Path(__file__).parent / "market-intel.md"
+BLOG_DIR   = REPO_ROOT / "app" / "blog"
+IMAGES_DIR = REPO_ROOT / "public" / "images" / "blog"
 
 # ── Content rotation matrix ───────────────────────────────────────────────────
 AUDIENCE_ANGLE_MATRIX = [
@@ -266,11 +260,21 @@ export default function Page() {{
 """
 
 
+def _unsplash_query(title: str) -> str:
+    """Derive a short Unsplash search query from the post title."""
+    # Strip St Andrews-specific terms that won't help on Unsplash
+    stop = {"st", "andrews", "scotland", "scottish", "standrews", "the", "a", "an",
+            "and", "or", "for", "to", "in", "of", "on", "at", "how", "what", "your",
+            "every", "when", "why", "which", "who", "with", "without"}
+    words = [w for w in re.findall(r"[a-z]+", title.lower()) if w not in stop]
+    return " ".join(words[:6])
+
+
 def generate_cover_image(title: str, slug: str) -> str | None:
-    """Generate a cover image via Gemini and return the public path, or None on failure."""
-    api_key = os.environ.get("GOOGLE_API_KEY")
-    if not api_key or not GOOGLE_GENAI_AVAILABLE:
-        print("  [image] GOOGLE_API_KEY not set or google-genai not installed — skipping image")
+    """Fetch a cover image from Unsplash and return the public path, or None on failure."""
+    access_key = os.environ.get("UNSPLASH_ACCESS_KEY")
+    if not access_key:
+        print("  [image] UNSPLASH_ACCESS_KEY not set — skipping image")
         return None
 
     out_path = IMAGES_DIR / f"{slug}-cover.png"
@@ -278,27 +282,34 @@ def generate_cover_image(title: str, slug: str) -> str | None:
         print(f"  [image] {out_path.name} already exists — reusing")
         return f"/images/blog/{slug}-cover.png"
 
-    prompt = (
-        f"High-quality editorial photograph suitable as a blog cover image for an article titled: '{title}'. "
-        "The image should be relevant to student housing in St Andrews, Scotland — showing either "
-        "the historic town, student flats, letting documents, or related concepts. "
-        "Photorealistic, professional photography style. Landscape format. No text, no watermarks."
-    )
-
-    print(f"  [image] Generating cover for '{title[:60]}...'")
+    query = _unsplash_query(title)
+    print(f"  [image] Searching Unsplash for '{query}' …")
     try:
-        client = google_genai.Client(api_key=api_key)
-        response = client.models.generate_content(model=GEMINI_MODEL, contents=prompt)
-        for part in response.parts:
-            if part.inline_data is not None:
-                IMAGES_DIR.mkdir(parents=True, exist_ok=True)
-                out_path.write_bytes(part.inline_data.data)
-                print(f"  [image] Saved {out_path.name} ({out_path.stat().st_size // 1024} KB)")
-                time.sleep(3)
-                return f"/images/blog/{slug}-cover.png"
-        print("  [image] No image data returned by Gemini")
+        resp = requests.get(
+            "https://api.unsplash.com/search/photos",
+            params={"query": query, "orientation": "landscape", "per_page": 1, "client_id": access_key},
+            timeout=15,
+        )
+        resp.raise_for_status()
+        results = resp.json().get("results", [])
+        if not results:
+            print(f"  [image] No Unsplash results for '{query}'")
+            return None
+
+        photo = results[0]
+        # Required by Unsplash API guidelines
+        requests.get(photo["links"]["download_location"],
+                     params={"client_id": access_key}, timeout=10)
+
+        img = requests.get(photo["urls"]["regular"], timeout=30)
+        img.raise_for_status()
+        IMAGES_DIR.mkdir(parents=True, exist_ok=True)
+        out_path.write_bytes(img.content)
+        print(f"  [image] Saved {out_path.name} ({out_path.stat().st_size // 1024} KB)"
+              f" — photo by {photo['user']['name']} on Unsplash")
+        return f"/images/blog/{slug}-cover.png"
     except Exception as e:
-        print(f"  [image] Gemini error: {e}")
+        print(f"  [image] Unsplash error: {e}")
     return None
 
 
