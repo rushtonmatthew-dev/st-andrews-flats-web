@@ -11,6 +11,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${BASE}/agents`,   lastModified: new Date(), changeFrequency: "monthly", priority: 0.6 },
     { url: `${BASE}/guide`,    lastModified: new Date(), changeFrequency: "monthly", priority: 0.7 },
     { url: `${BASE}/blog`,     lastModified: new Date(), changeFrequency: "monthly", priority: 0.6 },
+    { url: `${BASE}/blog/student-renter-legal-rights-st-andrews-parents-guide`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.7 },
     { url: `${BASE}/blog/how-to-read-student-letting-contract-st-andrews`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.7 },
     { url: `${BASE}/blog/international-student-rights`,   lastModified: new Date(), changeFrequency: "monthly", priority: 0.6 },
     { url: `${BASE}/blog/st-andrews-rental-scams`,        lastModified: new Date(), changeFrequency: "monthly", priority: 0.6 },
