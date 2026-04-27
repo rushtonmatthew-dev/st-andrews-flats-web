@@ -1,14 +1,12 @@
 #!/usr/bin/env python3
 """
-Generate all site images via the Gemini image generation API.
+Fetch site images from Unsplash and save to public/images/.
 
 Run once from the repo root:
-    pip install google-genai
-    GOOGLE_API_KEY=<key> python scripts/generate-images.py
+    pip install requests
+    UNSPLASH_ACCESS_KEY=<key> python scripts/generate-images.py
 
-Images are saved to public/images/. Existing files are skipped.
-Re-run any time to fill gaps or regenerate a specific image
-(delete the file first to force regeneration).
+Existing files are skipped. Delete a file to force re-fetch.
 """
 
 import os
@@ -17,127 +15,69 @@ import time
 from pathlib import Path
 
 try:
-    from google import genai
+    import requests
 except ImportError:
-    sys.exit("google-genai not installed. Run: pip install google-genai")
+    sys.exit("requests not installed. Run: pip install requests")
 
-REPO_ROOT   = Path(__file__).parent.parent
-PUBLIC_DIR  = REPO_ROOT / "public" / "images"
-MODEL       = os.environ.get("GEMINI_IMAGE_MODEL", "gemini-3.1-flash-image-preview")
+REPO_ROOT  = Path(__file__).parent.parent
+PUBLIC_DIR = REPO_ROOT / "public" / "images"
+API_BASE   = "https://api.unsplash.com"
 
-# ── Image definitions ─────────────────────────────────────────────────────────
 # path: relative to public/images/
-# prompt: what to generate
+# query: Unsplash search terms
 
 IMAGES = [
     # ── Site-wide ─────────────────────────────────────────────────────────────
     {
-        "path": "site/og-image.png",
-        "alt":  "St Andrews town — student letting alerts",
-        "prompt": (
-            "Cinematic ultra-wide aerial photograph of the historic coastal town of St Andrews, "
-            "Scotland. The iconic cathedral ruins in the left foreground, St Salvator's Chapel "
-            "tower visible, pale sandstone university buildings, cobblestone streets, slate rooftops, "
-            "and the blue North Sea stretching to the horizon. Warm golden late-afternoon light, "
-            "scattered clouds. Photorealistic, 1200×630 landscape. No people, no text."
-        ),
+        "path":  "site/og-image.png",
+        "query": "St Andrews Scotland cathedral town aerial",
     },
     {
-        "path": "site/hero.png",
-        "alt":  "St Andrews, Scotland — historic university town",
-        "prompt": (
-            "Wide-angle architectural street photograph of a quiet cobblestone lane in "
-            "St Andrews, Scotland. Pale sandstone Georgian townhouses with sash windows and "
-            "black iron railings on both sides, a church spire visible at the end of the street. "
-            "Warm golden afternoon sunlight, long shadows, blue sky. Photorealistic, cinematic, "
-            "ultra-high resolution. No people."
-        ),
+        "path":  "site/hero.png",
+        "query": "St Andrews Scotland cobblestone street historic",
     },
     {
-        "path": "site/guide-hero.png",
-        "alt":  "St Andrews student housing guide",
-        "prompt": (
-            "Elevated view looking over the historic rooftops of St Andrews, Scotland. "
-            "Pale sandstone university buildings, ancient church tower, slate rooftops and "
-            "chimney pots, glimpse of the North Sea on the horizon. Warm morning light, "
-            "clear blue sky. Professional architectural photography, photorealistic. No people."
-        ),
+        "path":  "site/guide-hero.png",
+        "query": "St Andrews Scotland university rooftops",
     },
 
     # ── Blog covers ───────────────────────────────────────────────────────────
     {
-        "path": "blog/rental-scams-cover.png",
-        "alt":  "Rental contract on a desk",
-        "prompt": (
-            "Close-up editorial photograph: a printed rental tenancy agreement on a wooden desk, "
-            "key clauses circled in red pen, reading glasses placed beside it, warm desk lamp "
-            "casting golden light. Shallow depth of field, professional photography. No faces."
-        ),
+        "path":  "blog/rental-scams-cover.png",
+        "query": "rental contract lease document signing desk",
     },
     {
-        "path": "blog/parents-guide-cover.png",
-        "alt":  "St Andrews town viewed from above",
-        "prompt": (
-            "Panoramic view looking across the rooftops of St Andrews, Scotland toward the sea. "
-            "Cathedral ruins on the left, stone university buildings, cobblestone streets, "
-            "North Sea gleaming in the background. Warm golden evening light. "
-            "Professional travel photography, photorealistic. No people."
-        ),
+        "path":  "blog/parents-guide-cover.png",
+        "query": "St Andrews Scotland town scenic",
     },
     {
-        "path": "blog/second-year-scramble-cover.png",
-        "alt":  "Bright student flat interior in St Andrews",
-        "prompt": (
-            "Interior of a well-maintained Scottish period student flat. High ceilings with "
-            "original cornicing, large sash windows letting in bright natural daylight, "
-            "stripped wooden floors, simple neutral furnishings. Clean and inviting. "
-            "Professional interior architecture photography, photorealistic. No people."
-        ),
+        "path":  "blog/second-year-scramble-cover.png",
+        "query": "apartment interior living room bright modern",
     },
     {
-        "path": "blog/best-streets-cover.png",
-        "alt":  "Residential street in St Andrews",
-        "prompt": (
-            "Wide shot of a tree-lined residential street in St Andrews, Scotland. "
-            "Stone Victorian terraced townhouses on both sides, black iron railings, "
-            "mature trees with golden autumn foliage, warm afternoon sunlight casting "
-            "dappled shadows on the pavement. Professional street photography. No people."
-        ),
+        "path":  "blog/best-streets-cover.png",
+        "query": "residential street Victorian terraced houses autumn",
     },
     {
-        "path": "blog/housing-timeline-cover.png",
-        "alt":  "Diary planner with house key",
-        "prompt": (
-            "Flat lay still life on a wooden desk: an open monthly planner diary, "
-            "a small brass house key resting on the January page, a steaming cup of tea "
-            "in the corner, fountain pen beside the diary. Warm golden window light. "
-            "Professional lifestyle photography, shallow depth of field."
-        ),
+        "path":  "blog/housing-timeline-cover.png",
+        "query": "planner diary desk key organised planning",
     },
     {
-        "path": "blog/international-student-rights-cover.png",
-        "alt":  "University gate with international flags",
-        "prompt": (
-            "Historic Scottish university stone archway entrance gate, international flags "
-            "on flagpoles in the forecourt, pale sandstone carved detail, blue sky above, "
-            "warm morning sunlight. Professional architectural photography, photorealistic. "
-            "No people, no visible text."
-        ),
+        "path":  "blog/international-student-rights-cover.png",
+        "query": "university campus international students diverse",
     },
     {
-        "path": "blog/how-to-read-student-letting-contract-st-andrews-cover.png",
-        "alt":  "Reviewing a lease contract",
-        "prompt": (
-            "Editorial close-up: hands carefully annotating a printed lease document on a "
-            "wooden table, a pen making notes in the margin. Warm natural light from a nearby "
-            "window. Shallow depth of field, professional photography. No faces visible."
-        ),
+        "path":  "blog/how-to-read-student-letting-contract-st-andrews-cover.png",
+        "query": "lease contract document pen annotating closeup",
+    },
+    {
+        "path":  "blog/student-renter-legal-rights-st-andrews-parents-guide-cover.png",
+        "query": "parents student housing family moving",
     },
 ]
 
-# ── Generator ─────────────────────────────────────────────────────────────────
 
-def generate_image(client, item: dict) -> None:
+def fetch_image(access_key: str, item: dict) -> None:
     out_path = PUBLIC_DIR / item["path"]
 
     if out_path.exists():
@@ -145,37 +85,60 @@ def generate_image(client, item: dict) -> None:
         return
 
     out_path.parent.mkdir(parents=True, exist_ok=True)
-    print(f"  gen   {item['path']} …")
+    print(f"  fetch {item['path']} …")
 
-    try:
-        response = client.models.generate_content(
-            model=MODEL,
-            contents=item["prompt"],
-        )
-        for part in response.parts:
-            if part.inline_data is not None:
-                out_path.write_bytes(part.inline_data.data)
-                size_kb = out_path.stat().st_size // 1024
-                print(f"  saved {item['path']} ({size_kb} KB)")
-                return
-        print(f"  WARN  no image returned for {item['path']}")
-    except Exception as e:
-        print(f"  ERR   {item['path']}: {e}")
+    # Search Unsplash
+    search_resp = requests.get(
+        f"{API_BASE}/search/photos",
+        params={
+            "query":       item["query"],
+            "orientation": "landscape",
+            "per_page":    1,
+            "client_id":   access_key,
+        },
+        timeout=15,
+    )
+    search_resp.raise_for_status()
+    results = search_resp.json().get("results", [])
+
+    if not results:
+        print(f"  WARN  no results for query: {item['query']}")
+        return
+
+    photo = results[0]
+
+    # Required by Unsplash API guidelines: trigger download tracking
+    requests.get(
+        photo["links"]["download_location"],
+        params={"client_id": access_key},
+        timeout=10,
+    )
+
+    # Download the image at regular resolution (1080px wide)
+    img_resp = requests.get(photo["urls"]["regular"], timeout=30)
+    img_resp.raise_for_status()
+
+    out_path.write_bytes(img_resp.content)
+    size_kb = out_path.stat().st_size // 1024
+    photographer = photo["user"]["name"]
+    print(f"  saved {item['path']} ({size_kb} KB) — photo by {photographer} on Unsplash")
 
 
 def main() -> None:
-    api_key = os.environ.get("GOOGLE_API_KEY")
-    if not api_key:
-        sys.exit("GOOGLE_API_KEY environment variable not set.")
+    access_key = os.environ.get("UNSPLASH_ACCESS_KEY")
+    if not access_key:
+        sys.exit("UNSPLASH_ACCESS_KEY environment variable not set.")
 
-    client = genai.Client(api_key=api_key)
-    print(f"Generating {len(IMAGES)} images using {MODEL}\n")
+    print(f"Fetching {len(IMAGES)} images from Unsplash\n")
 
     for i, item in enumerate(IMAGES, 1):
         print(f"[{i}/{len(IMAGES)}] {item['path']}")
-        generate_image(client, item)
+        try:
+            fetch_image(access_key, item)
+        except Exception as e:
+            print(f"  ERR   {item['path']}: {e}")
         if i < len(IMAGES):
-            time.sleep(3)  # avoid rate limits
+            time.sleep(1)
 
     print("\nDone.")
 
