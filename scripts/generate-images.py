@@ -72,7 +72,7 @@ IMAGES = [
     },
     {
         "path":  "blog/student-renter-legal-rights-st-andrews-parents-guide-cover.png",
-        "query": "parents student housing family moving",
+        "query": "legal rights renting tenant university student",
     },
 ]
 

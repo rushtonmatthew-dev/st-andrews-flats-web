@@ -262,12 +262,17 @@ export default function Page() {{
 
 def _unsplash_query(title: str) -> str:
     """Derive a short Unsplash search query from the post title."""
-    # Strip St Andrews-specific terms that won't help on Unsplash
-    stop = {"st", "andrews", "scotland", "scottish", "standrews", "the", "a", "an",
-            "and", "or", "for", "to", "in", "of", "on", "at", "how", "what", "your",
-            "every", "when", "why", "which", "who", "with", "without"}
+    stop = {
+        "st", "andrews", "scotland", "scottish", "standrews",
+        "the", "a", "an", "and", "or", "for", "to", "in", "of", "on", "at",
+        "how", "what", "your", "every", "when", "why", "which", "who", "with", "without",
+        # family/age terms that pull in nursery/child imagery
+        "child", "children", "parent", "parents", "family", "kid", "kids",
+        "know", "needs", "need", "guide", "complete",
+    }
     words = [w for w in re.findall(r"[a-z]+", title.lower()) if w not in stop]
-    return " ".join(words[:6])
+    # Anchor to student housing so results stay on-topic
+    return " ".join(words[:5]) + " university student"
 
 
 def generate_cover_image(title: str, slug: str) -> str | None:
