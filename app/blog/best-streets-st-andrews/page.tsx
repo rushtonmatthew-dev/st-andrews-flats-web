@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   alternates: { canonical: "https://www.standrewsflats.uk/blog/best-streets-st-andrews" },
 };
 
-const COVER_IMAGE = "/images/blog/best-streets-cover.jpg";
+const COVER_IMAGE = "/images/blog/best-streets-cover.png";
 const COVER_IMAGE_ALT = "North Street in St Andrews on a sunny day";
 
 export default function BestStreetsPost() {

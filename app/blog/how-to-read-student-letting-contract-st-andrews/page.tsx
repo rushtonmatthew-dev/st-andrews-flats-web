@@ -112,6 +112,8 @@ export default function Page() {
       title="How to Read a Student Letting Contract in St Andrews: What to Check Before You Sign"
       date="2026-04-20"
       body={body}
+      coverImage="/images/blog/how-to-read-student-letting-contract-st-andrews-cover.png"
+      coverImageAlt="Reviewing a lease contract"
     />
   )
 }

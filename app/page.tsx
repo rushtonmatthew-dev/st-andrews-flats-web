@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { getSupabase } from "@/lib/supabase";
 import SuggestAgentForm from "@/components/SuggestAgentForm";
@@ -15,14 +16,14 @@ export const metadata: Metadata = {
     url: "https://www.standrewsflats.uk/",
     type: "website",
     siteName: "St Andrews Flats",
-    images: [{ url: "https://www.standrewsflats.uk/og-image.png" }],
+    images: [{ url: "https://www.standrewsflats.uk/images/site/og-image.png" }],
   },
   twitter: {
     card: "summary_large_image",
     title: "St Andrews Student Letting Alerts — Free & instant",
     description:
       "We check 7 letting agents every 15 minutes and email you the moment a new flat appears. Free, no account needed.",
-    images: ["https://www.standrewsflats.uk/og-image.png"],
+    images: ["https://www.standrewsflats.uk/images/site/og-image.png"],
   },
 };
 
@@ -84,6 +85,18 @@ export default async function Home() {
             Properties in St Andrews let within days. We check 7 letting agents every 15 minutes
             and email you the moment something new hits the market — before anyone else sees it.
           </p>
+
+          <div className="relative w-full mt-6 mb-2 overflow-hidden rounded-xl" style={{ maxHeight: "260px" }}>
+            <Image
+              src="/images/site/hero.png"
+              alt="Cobblestone street in St Andrews, Scotland"
+              width={1200}
+              height={675}
+              className="w-full object-cover"
+              style={{ maxHeight: "260px" }}
+              priority
+            />
+          </div>
 
           {/* Hero email capture */}
           <form action="/subscribe" method="get" className="mt-6 flex flex-col sm:flex-row gap-2">

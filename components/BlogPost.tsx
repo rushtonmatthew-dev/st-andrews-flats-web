@@ -1,12 +1,15 @@
 'use client'
 
 import { useMemo } from 'react'
+import Image from 'next/image'
 import Link from 'next/link'
 
 interface BlogPostProps {
   title: string
   date: string
   body: string
+  coverImage?: string
+  coverImageAlt?: string
 }
 
 // ── Inline formatter ──────────────────────────────────────────────────────────
@@ -150,7 +153,7 @@ function formatDate(iso: string): string {
 
 // ── Component ─────────────────────────────────────────────────────────────────
 
-export default function BlogPost({ title, date, body }: BlogPostProps) {
+export default function BlogPost({ title, date, body, coverImage, coverImageAlt }: BlogPostProps) {
   const html = useMemo(() => markdownToHtml(body), [body])
 
   return (
@@ -163,7 +166,21 @@ export default function BlogPost({ title, date, body }: BlogPostProps) {
         <p className="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-3">
           {formatDate(date)}
         </p>
-        <h1 className="text-3xl font-bold text-gray-900 mb-8">{title}</h1>
+        <h1 className="text-3xl font-bold text-gray-900 mb-6">{title}</h1>
+
+        {coverImage && (
+          <div className="relative w-full mb-8 overflow-hidden rounded-xl" style={{ maxHeight: '400px' }}>
+            <Image
+              src={coverImage}
+              alt={coverImageAlt ?? title}
+              width={1200}
+              height={675}
+              className="w-full object-cover"
+              style={{ maxHeight: '400px' }}
+              priority
+            />
+          </div>
+        )}
 
         <div
           className="blog-post-body"

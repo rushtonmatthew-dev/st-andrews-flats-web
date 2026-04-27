@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   alternates: { canonical: "https://www.standrewsflats.uk/blog/international-student-rights" },
 };
 
-const COVER_IMAGE = "";
+const COVER_IMAGE = "/images/blog/international-student-rights-cover.png";
 const COVER_IMAGE_ALT = "International students walking through St Andrews town centre";
 
 export default function InternationalStudentRightsPost() {

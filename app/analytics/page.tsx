@@ -17,7 +17,7 @@ export const metadata: Metadata = {
     url: "https://www.standrewsflats.uk/analytics",
     type: "website",
     siteName: "St Andrews Flats",
-    images: [{ url: "https://www.standrewsflats.uk/og-image.png" }],
+    images: [{ url: "https://www.standrewsflats.uk/images/site/og-image.png" }],
   },
   twitter: {
     card: "summary_large_image",

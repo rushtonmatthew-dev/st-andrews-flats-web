@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   alternates: { canonical: "https://www.standrewsflats.uk/blog/housing-timeline-st-andrews" },
 };
 
-const COVER_IMAGE = "/images/blog/housing-timeline-cover.jpg";
+const COVER_IMAGE = "/images/blog/housing-timeline-cover.png";
 const COVER_IMAGE_ALT = "A calendar on a desk next to a set of house keys";
 
 export default function HousingTimelinePost() {

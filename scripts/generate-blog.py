@@ -11,14 +11,23 @@ Weekly blog generator for standrewsflats.uk
 import os
 import re
 import json
+import time
 import datetime
 import anthropic
 from pathlib import Path
 
+try:
+    from google import genai as google_genai
+    GOOGLE_GENAI_AVAILABLE = True
+except ImportError:
+    GOOGLE_GENAI_AVAILABLE = False
+
 # ── Paths ─────────────────────────────────────────────────────────────────────
-REPO_ROOT  = Path(__file__).parent.parent
-INTEL_FILE = Path(__file__).parent / "market-intel.md"
-BLOG_DIR   = REPO_ROOT / "app" / "blog"
+REPO_ROOT   = Path(__file__).parent.parent
+INTEL_FILE  = Path(__file__).parent / "market-intel.md"
+BLOG_DIR    = REPO_ROOT / "app" / "blog"
+IMAGES_DIR  = REPO_ROOT / "public" / "images" / "blog"
+GEMINI_MODEL = os.environ.get("GEMINI_IMAGE_MODEL", "gemini-2.0-flash-preview-image-generation")
 
 # ── Content rotation matrix ───────────────────────────────────────────────────
 AUDIENCE_ANGLE_MATRIX = [
@@ -199,12 +208,13 @@ def escape_tsx(text: str) -> str:
     return text
 
 
-def render_tsx(post: dict, published_date: str) -> str:
+def render_tsx(post: dict, published_date: str, cover_image: str | None = None) -> str:
     meta = json.dumps({
-        "title":    post["title"],
-        "audience": post["audience"],
-        "angle":    post["angle"],
-        "date":     published_date,
+        "title":       post["title"],
+        "audience":    post["audience"],
+        "angle":       post["angle"],
+        "date":        published_date,
+        "cover_image": cover_image or "",
     })
 
     escaped_body = escape_tsx(post["body"])
@@ -213,6 +223,16 @@ def render_tsx(post: dict, published_date: str) -> str:
     desc_ts    = post["metaDescription"].replace("'", "\\'")
     title_jsx  = post["title"].replace('"', '\\"')
     slug       = post["slug"]
+
+    og_image_line = (
+        f"\n    images: [{{ url: 'https://www.standrewsflats.uk{cover_image}' }}],"
+        if cover_image else ""
+    )
+
+    cover_image_prop = (
+        f'\n      coverImage="{cover_image}"\n      coverImageAlt="{title_jsx}"'
+        if cover_image else ""
+    )
 
     return f"""/* BLOG_META {meta} */
 import type {{ Metadata }} from 'next'
@@ -228,7 +248,7 @@ export const metadata: Metadata = {{
     url: 'https://www.standrewsflats.uk/blog/{slug}',
     siteName: 'StAndrewsFlats.uk',
     type: 'article',
-    publishedTime: '{published_date}',
+    publishedTime: '{published_date}',{og_image_line}
   }},
 }}
 
@@ -239,26 +259,64 @@ export default function Page() {{
     <BlogPost
       title="{title_jsx}"
       date="{published_date}"
-      body={{body}}
+      body={{body}}{cover_image_prop}
     />
   )
 }}
 """
 
 
-def write_post(post: dict, published_date: str) -> Path:
+def generate_cover_image(title: str, slug: str) -> str | None:
+    """Generate a cover image via Gemini and return the public path, or None on failure."""
+    api_key = os.environ.get("GOOGLE_API_KEY")
+    if not api_key or not GOOGLE_GENAI_AVAILABLE:
+        print("  [image] GOOGLE_API_KEY not set or google-genai not installed — skipping image")
+        return None
+
+    out_path = IMAGES_DIR / f"{slug}-cover.png"
+    if out_path.exists():
+        print(f"  [image] {out_path.name} already exists — reusing")
+        return f"/images/blog/{slug}-cover.png"
+
+    prompt = (
+        f"High-quality editorial photograph suitable as a blog cover image for an article titled: '{title}'. "
+        "The image should be relevant to student housing in St Andrews, Scotland — showing either "
+        "the historic town, student flats, letting documents, or related concepts. "
+        "Photorealistic, professional photography style. Landscape format. No text, no watermarks."
+    )
+
+    print(f"  [image] Generating cover for '{title[:60]}...'")
+    try:
+        client = google_genai.Client(api_key=api_key)
+        response = client.models.generate_content(model=GEMINI_MODEL, contents=prompt)
+        for part in response.parts:
+            if part.inline_data is not None:
+                IMAGES_DIR.mkdir(parents=True, exist_ok=True)
+                out_path.write_bytes(part.inline_data.data)
+                print(f"  [image] Saved {out_path.name} ({out_path.stat().st_size // 1024} KB)")
+                time.sleep(3)
+                return f"/images/blog/{slug}-cover.png"
+        print("  [image] No image data returned by Gemini")
+    except Exception as e:
+        print(f"  [image] Gemini error: {e}")
+    return None
+
+
+def write_post(post: dict, published_date: str) -> tuple[Path, str | None]:
     slug = post.get("slug") or slugify(post["title"])
     post_dir = BLOG_DIR / slug
     post_dir.mkdir(parents=True, exist_ok=True)
 
+    cover_image = generate_cover_image(post["title"], slug)
+
     tsx_path = post_dir / "page.tsx"
-    tsx_path.write_text(render_tsx(post, published_date), encoding="utf-8")
+    tsx_path.write_text(render_tsx(post, published_date, cover_image), encoding="utf-8")
 
     print(f"Written: {tsx_path}")
-    return tsx_path
+    return tsx_path, cover_image
 
 
-def update_blog_index(post: dict, published_date: str) -> None:
+def update_blog_index(post: dict, published_date: str, cover_image: str | None = None) -> None:
     """Prepend the new post to the hardcoded posts array in app/blog/page.tsx."""
     index_path = BLOG_DIR / "page.tsx"
     content = index_path.read_text(encoding="utf-8")
@@ -277,8 +335,8 @@ def update_blog_index(post: dict, published_date: str) -> None:
         f'    date: "{display_date}",\n'
         f'    excerpt:\n'
         f'      "{ts_escape(post["metaDescription"])}",\n'
-        f'    cover_image: "",\n'
-        f'    cover_image_alt: "",\n'
+        f'    cover_image: "{cover_image or ""}",\n'
+        f'    cover_image_alt: "{ts_escape(post["title"])}",\n'
         f'  }},\n'
     )
 
@@ -305,8 +363,8 @@ def main():
     print(f"Selected combo → audience: [{audience}] | angle: [{angle}]")
 
     post = generate_post(audience, angle, intel, existing_posts)
-    write_post(post, published_date)
-    update_blog_index(post, published_date)
+    _, cover_image = write_post(post, published_date)
+    update_blog_index(post, published_date, cover_image)
 
     print("Done. Vercel will deploy on the next git push.")
 

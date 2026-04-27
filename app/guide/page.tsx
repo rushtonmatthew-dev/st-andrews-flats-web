@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 
 export const metadata: Metadata = {
@@ -26,6 +27,19 @@ export default function GuidePage() {
         <h1 className="text-3xl font-bold text-gray-900 mb-2">
           The St Andrews student housing guide
         </h1>
+
+        <div className="relative w-full my-6 overflow-hidden rounded-xl" style={{ maxHeight: "320px" }}>
+          <Image
+            src="/images/site/guide-hero.png"
+            alt="St Andrews rooftops and university buildings"
+            width={1200}
+            height={675}
+            className="w-full object-cover"
+            style={{ maxHeight: "320px" }}
+            priority
+          />
+        </div>
+
         <p className="text-gray-500 mt-1 mb-8">
           Finding a flat in St Andrews is genuinely hard. The town has a population of around 20,000
           — and more than half of them are students. Properties let within days of appearing.

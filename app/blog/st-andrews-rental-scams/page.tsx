@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   alternates: { canonical: "https://www.standrewsflats.uk/blog/st-andrews-rental-scams" },
 };
 
-const COVER_IMAGE = "/images/blog/rental-scams-cover.jpg";
+const COVER_IMAGE = "/images/blog/rental-scams-cover.png";
 const COVER_IMAGE_ALT = "A student looking at a letting agent window display in St Andrews";
 
 export default function RentalScamsPost() {

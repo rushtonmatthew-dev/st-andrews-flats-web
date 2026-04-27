@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   alternates: { canonical: "https://www.standrewsflats.uk/blog/second-year-housing-scramble" },
 };
 
-const COVER_IMAGE = "/images/blog/second-year-scramble-cover.jpg";
+const COVER_IMAGE = "/images/blog/second-year-scramble-cover.png";
 const COVER_IMAGE_ALT = "Students walking along a street in St Andrews";
 
 export default function SecondYearHousingScramblePost() {

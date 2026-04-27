@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   alternates: { canonical: "https://www.standrewsflats.uk/blog/parents-guide-student-housing" },
 };
 
-const COVER_IMAGE = "/images/blog/parents-guide-cover.jpg";
+const COVER_IMAGE = "/images/blog/parents-guide-cover.png";
 const COVER_IMAGE_ALT = "St Andrews town viewed from the castle ruins";
 
 export default function ParentsGuidePost() {

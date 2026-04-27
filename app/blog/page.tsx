@@ -25,8 +25,8 @@ const posts = [
     date: "April 2026",
     excerpt:
       "Before you sign a St Andrews student flat contract, know exactly what to check. A practical guide to leases, deposits, HMO licences, and tenant rights.",
-    cover_image: "",
-    cover_image_alt: "",
+    cover_image: "/images/blog/how-to-read-student-letting-contract-st-andrews-cover.png",
+    cover_image_alt: "Reviewing a lease contract",
   },
   {
     slug: "international-student-rights",
@@ -34,7 +34,7 @@ const posts = [
     date: "April 2025",
     excerpt:
       "Scottish tenancy law, deposit protection, HMO licensing, guarantor requirements, and fraud protection — a complete guide for international students renting in St Andrews.",
-    cover_image: "",
+    cover_image: "/images/blog/international-student-rights-cover.png",
     cover_image_alt: "International students walking through St Andrews town centre",
   },
   {
@@ -43,7 +43,7 @@ const posts = [
     date: "April 2025",
     excerpt:
       "Three St Andrews students lost a combined £12,000 to housing scams in a single year. Here's exactly how the scams work, the red flags to spot, and the steps that protect you.",
-    cover_image: "/images/blog/rental-scams-cover.jpg",
+    cover_image: "/images/blog/rental-scams-cover.png",
     cover_image_alt: "A student looking at a letting agent window display in St Andrews",
   },
   {
@@ -52,7 +52,7 @@ const posts = [
     date: "April 2025",
     excerpt:
       "Costs, timelines, HMO rules, rental fraud, and guarantor arrangements — everything parents need to know before their child leaves halls.",
-    cover_image: "/images/blog/parents-guide-cover.jpg",
+    cover_image: "/images/blog/parents-guide-cover.png",
     cover_image_alt: "St Andrews town viewed from the castle ruins",
   },
   {
@@ -61,7 +61,7 @@ const posts = [
     date: "April 2025",
     excerpt:
       "Timelines, costs, agents, HMO rules, and how to avoid getting caught without a flat. Everything first-years need to know before the January drop.",
-    cover_image: "/images/blog/second-year-scramble-cover.jpg",
+    cover_image: "/images/blog/second-year-scramble-cover.png",
     cover_image_alt: "Students walking along a street in St Andrews",
   },
   {
@@ -70,7 +70,7 @@ const posts = [
     date: "April 2025",
     excerpt:
       "North Street or Lade Braes? Central or value? A practical breakdown of where to live in St Andrews for 2nd, 3rd, and 4th year.",
-    cover_image: "/images/blog/best-streets-cover.jpg",
+    cover_image: "/images/blog/best-streets-cover.png",
     cover_image_alt: "North Street in St Andrews on a sunny day",
   },
   {
@@ -79,7 +79,7 @@ const posts = [
     date: "April 2025",
     excerpt:
       "The St Andrews rental market moves faster than almost any other UK university town. Here's a month-by-month guide so you don't miss out.",
-    cover_image: "/images/blog/housing-timeline-cover.jpg",
+    cover_image: "/images/blog/housing-timeline-cover.png",
     cover_image_alt: "A calendar on a desk next to a set of house keys",
   },
 ];
