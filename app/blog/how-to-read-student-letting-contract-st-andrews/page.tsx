@@ -109,6 +109,7 @@ Finding the right flat in St Andrews is only half the battle. Understanding what
 export default function Page() {
   return (
     <BlogPost
+      slug="how-to-read-student-letting-contract-st-andrews"
       title="How to Read a Student Letting Contract in St Andrews: What to Check Before You Sign"
       date="2026-04-20"
       body={body}

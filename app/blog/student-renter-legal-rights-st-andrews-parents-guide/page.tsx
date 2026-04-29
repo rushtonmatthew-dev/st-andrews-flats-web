@@ -115,6 +115,7 @@ For comprehensive, up-to-date guidance on the St Andrews student lettings market
 export default function Page() {
   return (
     <BlogPost
+      slug="student-renter-legal-rights-st-andrews-parents-guide"
       title="Your Child's Legal Rights as a Student Renter in St Andrews: What Every Parent Needs to Know"
       date="2026-04-27"
       body={body}

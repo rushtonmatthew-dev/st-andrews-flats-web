@@ -1,26 +1,44 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --cream:      oklch(97% 0.018 72);
+  --cream-mid:  oklch(94% 0.024 72);
+  --cream-dark: oklch(90% 0.03 72);
+  --coral:      oklch(62% 0.17 42);
+  --coral-lt:   oklch(92% 0.06 42);
+  --coral-dk:   oklch(55% 0.17 42);
+  --ink:        oklch(18% 0.02 72);
+  --ink-mid:    oklch(40% 0.02 72);
+  --ink-soft:   oklch(60% 0.018 72);
+  --ink-faint:  oklch(76% 0.015 72);
+  --white:      oklch(99.5% 0.005 72);
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --color-background: var(--cream);
+  --color-foreground: var(--ink);
+  --font-sans: var(--font-jakarta);
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--cream);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+@media (max-width: 700px) {
+  .nav-links .nav-link { display: none; }
+  .stats-grid { grid-template-columns: repeat(2, 1fr); }
+  .steps-grid,
+  .features-grid,
+  .blog-grid { grid-template-columns: 1fr; }
+  .featured-post { grid-template-columns: 1fr; }
+  .urgency-inner { flex-direction: column; }
+  .urgency-btn { width: 100%; }
+  .faq-inner,
+  .guide-inner,
+  .post-layout { grid-template-columns: 1fr; }
+  .post-sidebar,
+  .guide-sidebar { display: none; }
 }

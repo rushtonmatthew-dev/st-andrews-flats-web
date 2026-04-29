@@ -1,9 +1,8 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
-import { Suspense } from "react";
 
 type Prefs = {
   sub_type: "instant" | "daily" | "both";
@@ -60,111 +59,173 @@ function ManageForm() {
   }
 
   if (status === "loading") {
-    return <p className="text-gray-500">Loading your preferences…</p>;
+    return <p style={{ color: "var(--ink-soft)", fontSize: 15 }}>Loading your preferences…</p>;
   }
 
   if (status === "invalid") {
     return (
       <div className="text-center">
-        <h1 className="text-2xl font-bold text-gray-900 mb-3">Invalid link</h1>
-        <p className="text-gray-600 mb-4">This manage link is invalid or the subscription is no longer active.</p>
-        <Link href="/subscribe" className="text-blue-600 hover:underline">Subscribe again</Link>
+        <h1
+          className="font-extrabold mb-3"
+          style={{ fontSize: "clamp(24px, 3vw, 32px)", color: "var(--ink)", letterSpacing: "-0.03em" }}
+        >
+          Invalid link
+        </h1>
+        <p className="mb-6" style={{ fontSize: 15, color: "var(--ink-mid)", lineHeight: 1.65 }}>
+          This manage link is invalid or the subscription is no longer active.
+        </p>
+        <Link href="/subscribe" style={{ color: "var(--coral)", textDecoration: "underline", fontSize: 14 }}>
+          Subscribe again
+        </Link>
       </div>
     );
   }
 
   if (status === "error") {
-    return <p className="text-red-600">Something went wrong. Please try again later.</p>;
+    return <p style={{ color: "#dc2626", fontSize: 14 }}>Something went wrong. Please try again later.</p>;
   }
 
-  return (
-    <form onSubmit={handleSubmit} className="space-y-6 w-full max-w-md">
-      <div>
-        <h1 className="text-3xl font-bold text-gray-900 mb-1">Manage alerts</h1>
-        <p className="text-gray-500 text-sm">Update your preferences below.</p>
-      </div>
+  const freqs = [
+    { id: "both" as const, label: "Instant + daily digest" },
+    { id: "instant" as const, label: "Instant only" },
+    { id: "daily" as const, label: "Daily only" },
+  ];
 
-      <div>
-        <p className="block text-sm font-medium text-gray-700 mb-2">Alert frequency</p>
+  const isSaved = status === "saved";
+
+  return (
+    <form onSubmit={handleSubmit} className="w-full max-w-[520px]">
+      <h1
+        className="font-extrabold mb-2"
+        style={{ fontSize: "clamp(24px, 3vw, 32px)", color: "var(--ink)", letterSpacing: "-0.03em" }}
+      >
+        Manage your alerts
+      </h1>
+      <p className="mb-10" style={{ fontSize: 15, color: "var(--ink-mid)" }}>
+        Update your preferences below. Changes take effect immediately.
+      </p>
+
+      {/* Frequency */}
+      <div className="mb-7">
+        <p
+          className="font-bold uppercase tracking-widest mb-3"
+          style={{ fontSize: 12, color: "var(--ink-soft)" }}
+        >
+          Alert frequency
+        </p>
         <div className="grid grid-cols-3 gap-2">
-          {(["both", "instant", "daily"] as const).map((t) => {
-            const labels = { both: "Both", instant: "Instant only", daily: "Daily only" };
+          {freqs.map((f) => {
+            const selected = prefs.sub_type === f.id;
             return (
               <button
-                key={t}
+                key={f.id}
                 type="button"
-                onClick={() => setPrefs((p) => ({ ...p, sub_type: t }))}
-                className={`rounded-lg border px-3 py-3 text-sm font-semibold transition-colors ${
-                  prefs.sub_type === t
-                    ? "border-blue-600 bg-blue-50 text-blue-700"
-                    : "border-gray-200 text-gray-600 hover:border-gray-300"
-                }`}
+                onClick={() => setPrefs((p) => ({ ...p, sub_type: f.id }))}
+                className="text-center transition-colors py-3 px-2"
+                style={{
+                  borderRadius: 12,
+                  border: `1.5px solid ${selected ? "var(--coral)" : "var(--cream-dark)"}`,
+                  background: selected ? "var(--coral-lt)" : "var(--white)",
+                  fontSize: 13,
+                  fontWeight: 600,
+                  color: selected ? "var(--coral)" : "var(--ink)",
+                }}
               >
-                {labels[t]}
+                {f.label}
               </button>
             );
           })}
         </div>
       </div>
 
-      <div>
-        <p className="block text-sm font-medium text-gray-700 mb-2">
-          Filters <span className="font-normal text-gray-400">(optional)</span>
+      {/* Filters */}
+      <div className="mb-8">
+        <p
+          className="font-bold uppercase tracking-widest mb-3"
+          style={{ fontSize: 12, color: "var(--ink-soft)" }}
+        >
+          Filters{" "}
+          <span className="font-normal normal-case tracking-normal" style={{ color: "var(--ink-faint)" }}>
+            (optional)
+          </span>
         </p>
         <div className="grid grid-cols-3 gap-3">
-          <div>
-            <label className="block text-xs text-gray-500 mb-1">Max price (£/mo)</label>
-            <input
-              type="number"
-              min={0}
-              value={prefs.max_price ?? ""}
-              onChange={(e) => setPrefs((p) => ({ ...p, max_price: e.target.value ? parseInt(e.target.value) : null }))}
-              placeholder="No limit"
-              className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-            />
-          </div>
-          <div>
-            <label className="block text-xs text-gray-500 mb-1">Min beds</label>
-            <input
-              type="number"
-              min={1}
-              max={10}
-              value={prefs.min_bedrooms ?? ""}
-              onChange={(e) => setPrefs((p) => ({ ...p, min_bedrooms: e.target.value ? parseInt(e.target.value) : null }))}
-              placeholder="Any"
-              className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-            />
-          </div>
-          <div>
-            <label className="block text-xs text-gray-500 mb-1">Max beds</label>
-            <input
-              type="number"
-              min={1}
-              max={10}
-              value={prefs.max_bedrooms ?? ""}
-              onChange={(e) => setPrefs((p) => ({ ...p, max_bedrooms: e.target.value ? parseInt(e.target.value) : null }))}
-              placeholder="Any"
-              className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-            />
-          </div>
+          {[
+            { id: "max_price", label: "Max price (£/mo)", key: "max_price" as const },
+            { id: "min_beds", label: "Min beds", key: "min_bedrooms" as const },
+            { id: "max_beds", label: "Max beds", key: "max_bedrooms" as const },
+          ].map(({ id, label, key }) => (
+            <div key={id}>
+              <label
+                className="block mb-1"
+                htmlFor={id}
+                style={{ fontSize: 12, color: "var(--ink-soft)" }}
+              >
+                {label}
+              </label>
+              <input
+                id={id}
+                type="number"
+                min={key !== "max_price" ? 1 : 0}
+                max={key !== "max_price" ? 10 : undefined}
+                value={prefs[key] ?? ""}
+                onChange={(e) =>
+                  setPrefs((p) => ({
+                    ...p,
+                    [key]: e.target.value ? parseInt(e.target.value) : null,
+                  }))
+                }
+                placeholder="No limit"
+                className="w-full outline-none"
+                style={{
+                  borderRadius: 10,
+                  border: "1.5px solid var(--cream-dark)",
+                  padding: "9px 12px",
+                  fontSize: 14,
+                  color: "var(--ink)",
+                  background: "var(--white)",
+                }}
+                onFocus={(e) => (e.currentTarget.style.borderColor = "var(--coral)")}
+                onBlur={(e) => (e.currentTarget.style.borderColor = "var(--cream-dark)")}
+              />
+            </div>
+          ))}
         </div>
       </div>
 
       <button
         type="submit"
         disabled={status === "saving"}
-        className="w-full bg-blue-600 hover:bg-blue-700 disabled:bg-blue-400 text-white font-semibold py-3 rounded-xl transition-colors"
+        className="w-full font-bold text-white transition-colors"
+        style={{
+          background: isSaved ? "oklch(55% 0.15 150)" : status === "saving" ? "var(--ink-faint)" : "var(--coral)",
+          borderRadius: 9999,
+          padding: "15px",
+          fontSize: 16,
+        }}
       >
-        {status === "saving" ? "Saving…" : status === "saved" ? "Saved!" : "Save preferences"}
+        {status === "saving" ? "Saving…" : isSaved ? "Preferences saved ✓" : "Save preferences"}
       </button>
+
+      <div className="text-center mt-6">
+        <Link
+          href="/unsubscribe"
+          style={{ fontSize: 13, color: "var(--ink-faint)", textDecoration: "underline" }}
+        >
+          Unsubscribe
+        </Link>
+      </div>
     </form>
   );
 }
 
 export default function ManagePage() {
   return (
-    <main className="flex flex-col items-center justify-center min-h-screen px-4">
-      <Suspense fallback={<p className="text-gray-500">Loading…</p>}>
+    <main
+      className="flex flex-col items-center justify-center min-h-screen px-8 py-16"
+      style={{ background: "var(--cream)" }}
+    >
+      <Suspense fallback={<p style={{ color: "var(--ink-soft)", fontSize: 15 }}>Loading…</p>}>
         <ManageForm />
       </Suspense>
     </main>
