@@ -14,31 +14,30 @@ const COVER_IMAGE_ALT = "International students walking through St Andrews town 
 
 export default function InternationalStudentRightsPost() {
   return (
-    <main className="min-h-screen bg-gray-50 px-4 py-12">
-      <div className="max-w-3xl mx-auto">
-        <Link href="/blog" className="text-sm text-gray-400 hover:text-gray-600 mb-4 inline-block">
+    <main className="min-h-screen px-8 py-12" style={{ background: "var(--cream)" }}>
+      <div className="max-w-[1080px] mx-auto">
+        <Link href="/blog" className="inline-block mb-6 font-medium" style={{ fontSize: 13, color: "var(--ink-soft)" }}>
           ← Insights
         </Link>
 
-        <p className="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-3">April 2025</p>
-        <h1 className="text-3xl font-bold text-gray-900 mb-3">
+        <p className="mb-2" style={{ fontSize: 12, fontWeight: 700, color: "var(--ink-faint)", textTransform: "uppercase", letterSpacing: "0.08em" }}>April 2025</p>
+        <h1 className="font-extrabold mb-4" style={{ fontSize: "clamp(22px, 2.5vw, 30px)", color: "var(--ink)", letterSpacing: "-0.03em", lineHeight: 1.2 }}>
           Renting in St Andrews as an International Student: Your Legal Rights, Your Protections, and What Nobody Tells You
         </h1>
-        <p className="text-lg text-gray-500 leading-relaxed mb-8">
+        <p className="mb-8" style={{ fontSize: 15, color: "var(--ink-mid)", lineHeight: 1.7 }}>
           Around 45% of St Andrews students are international. Most arrive with no knowledge of Scottish tenancy law and
           no frame of reference for how competitive this rental market is. Here&apos;s what you need to know before you
           sign anything.
         </p>
 
         {COVER_IMAGE && (
-          <div className="relative w-full mb-8 overflow-hidden rounded-xl" style={{ maxHeight: "400px" }}>
+          <div className="relative w-full mb-8 overflow-hidden rounded-[14px]" style={{ aspectRatio: "16/9" }}>
             <Image
               src={COVER_IMAGE}
               alt={COVER_IMAGE_ALT}
-              width={1200}
-              height={675}
-              className="w-full object-cover"
-              style={{ maxHeight: "400px" }}
+              fill
+              className="object-cover"
+              sizes="(max-width: 700px) 100vw, 780px"
             />
           </div>
         )}
@@ -488,13 +487,13 @@ export default function InternationalStudentRightsPost() {
 
           <section className="bg-blue-600 rounded-xl p-6 text-white">
             <h2 className="text-xl font-semibold mb-2">Find a verified property in St Andrews</h2>
-            <p className="text-blue-100 leading-relaxed mb-4">
+            <p className="mb-4" style={{ fontSize: 14, color: "oklch(88% 0.06 42)", lineHeight: 1.65 }}>
               Browse current listings from verified letting agents — or set up free instant alerts so you hear about
               new properties the moment they appear, before they&apos;re gone.
             </p>
             <Link
               href="/subscribe"
-              className="inline-block bg-white text-blue-600 font-semibold px-6 py-3 rounded-xl hover:bg-blue-50 transition-colors"
+              className="inline-block font-bold rounded-full px-5 py-2.5" style={{ background: "var(--white)", color: "var(--coral)", fontSize: 14 }}
             >
               Set up free alerts →
             </Link>
