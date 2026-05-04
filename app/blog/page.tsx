@@ -11,6 +11,15 @@ export const metadata: Metadata = {
 
 const posts = [
   {
+    slug: "st-andrews-student-housing-costs-international-students-budget-guide",
+    title: "St Andrews Student Housing Costs: What International Students Actually Pay (And How to Budget for It)",
+    date: "May 2026",
+    excerpt:
+      "How much does student housing in St Andrews actually cost? A frank cost comparison and budgeting guide for international students at the University of St Andrews.",
+    cover_image: "/images/blog/st-andrews-student-housing-costs-international-students-budget-guide-cover.png",
+    cover_image_alt: "St Andrews Student Housing Costs: What International Students Actually Pay (And How to Budget for It)",
+  },
+  {
     slug: "student-renter-legal-rights-st-andrews-parents-guide",
     title: "Your Child's Legal Rights as a Student Renter in St Andrews: What Every Parent Needs to Know",
     date: "April 2026",
