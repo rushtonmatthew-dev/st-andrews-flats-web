@@ -32,51 +32,37 @@ function ChartCard({ title, subtitle, children }: { title: string; subtitle?: st
   );
 }
 
+function barColour(count: number, max: number): string {
+  if (count === max) return "var(--coral)";
+  return `oklch(62% 0.17 42 / ${0.25 + (count / max) * 0.75})`;
+}
+
 export function WeeklyChart({ data }: { data: WeekPoint[] }) {
   const max = Math.max(...data.map((d) => d.count), 1);
-  const HEIGHT = 120;
-  const BAR_W = 100 / data.length;
-
   return (
     <ChartCard title="New listings per week (last 16 weeks)">
-      <div style={{ width: "100%", userSelect: "none" }}>
-        <svg
-          viewBox={`0 0 100 ${HEIGHT + 24}`}
-          style={{ width: "100%", overflow: "visible" }}
-          preserveAspectRatio="none"
-        >
-          {data.map((d, i) => {
-            const barH = (d.count / max) * HEIGHT;
-            const x = i * BAR_W + BAR_W * 0.15;
-            const w = BAR_W * 0.7;
-            const y = HEIGHT - barH;
-            const opacity = 0.55 + (d.count / max) * 0.45;
-            return (
-              <g key={i}>
-                <rect
-                  x={`${x}%`}
-                  y={y}
-                  width={`${w}%`}
-                  height={barH}
-                  rx={3}
-                  fill="var(--coral)"
-                  opacity={d.count === max ? 1 : opacity}
-                />
-                {i % 2 === 0 && (
-                  <text
-                    x={`${i * BAR_W + BAR_W / 2}%`}
-                    y={HEIGHT + 16}
-                    textAnchor="middle"
-                    fontSize={5.5}
-                    fill="var(--ink-faint)"
-                  >
-                    {d.week}
-                  </text>
-                )}
-              </g>
-            );
-          })}
-        </svg>
+      <div style={{ display: "flex", alignItems: "flex-end", gap: 3, height: 100 }}>
+        {data.map((d, i) => (
+          <div
+            key={i}
+            title={`${d.week}: ${d.count}`}
+            style={{
+              flex: 1,
+              borderRadius: "3px 3px 0 0",
+              height: d.count === 0 ? 2 : Math.max(4, (d.count / max) * 100),
+              background: barColour(d.count, max),
+            }}
+          />
+        ))}
+      </div>
+      <div style={{ display: "flex", marginTop: 6 }}>
+        {data.map((d, i) => (
+          <div key={i} style={{ flex: 1, textAlign: "center" }}>
+            {i % 2 === 0 && (
+              <span style={{ fontSize: 10, color: "var(--ink-faint)" }}>{d.week}</span>
+            )}
+          </div>
+        ))}
       </div>
     </ChartCard>
   );
@@ -84,46 +70,28 @@ export function WeeklyChart({ data }: { data: WeekPoint[] }) {
 
 export function DayOfWeekChart({ data }: { data: DayPoint[] }) {
   const max = Math.max(...data.map((d) => d.count), 1);
-  const HEIGHT = 100;
-  const BAR_W = 100 / data.length;
-
   return (
     <ChartCard title="By day of week">
-      <div style={{ width: "100%", userSelect: "none" }}>
-        <svg
-          viewBox={`0 0 100 ${HEIGHT + 24}`}
-          style={{ width: "100%", overflow: "visible" }}
-          preserveAspectRatio="none"
-        >
-          {data.map((d, i) => {
-            const barH = (d.count / max) * HEIGHT;
-            const x = i * BAR_W + BAR_W * 0.15;
-            const w = BAR_W * 0.7;
-            const y = HEIGHT - barH;
-            return (
-              <g key={i}>
-                <rect
-                  x={`${x}%`}
-                  y={y}
-                  width={`${w}%`}
-                  height={barH}
-                  rx={3}
-                  fill="var(--coral)"
-                  opacity={d.count === max ? 1 : 0.55 + (d.count / max) * 0.45}
-                />
-                <text
-                  x={`${i * BAR_W + BAR_W / 2}%`}
-                  y={HEIGHT + 16}
-                  textAnchor="middle"
-                  fontSize={6}
-                  fill="var(--ink-faint)"
-                >
-                  {d.day}
-                </text>
-              </g>
-            );
-          })}
-        </svg>
+      <div style={{ display: "flex", alignItems: "flex-end", gap: 6, height: 100 }}>
+        {data.map((d) => (
+          <div
+            key={d.day}
+            title={`${d.day}: ${d.count}`}
+            style={{
+              flex: 1,
+              borderRadius: "3px 3px 0 0",
+              height: d.count === 0 ? 2 : Math.max(4, (d.count / max) * 100),
+              background: barColour(d.count, max),
+            }}
+          />
+        ))}
+      </div>
+      <div style={{ display: "flex", marginTop: 6 }}>
+        {data.map((d) => (
+          <div key={d.day} style={{ flex: 1, textAlign: "center" }}>
+            <span style={{ fontSize: 11, color: "var(--ink-faint)" }}>{d.day}</span>
+          </div>
+        ))}
       </div>
     </ChartCard>
   );
@@ -137,34 +105,26 @@ export function HourChart({ data }: { data: HourPoint[] }) {
 
   return (
     <ChartCard title="Time of day new listings first appear" subtitle="UTC">
-      <div style={{ width: "100%" }}>
-        <div style={{ display: "flex", alignItems: "flex-end", gap: 2, height: 80 }}>
-          {data.map((d, i) => (
-            <div
-              key={i}
-              style={{ flex: 1, display: "flex", flexDirection: "column", alignItems: "center" }}
-            >
-              <div
-                style={{
-                  width: "100%",
-                  borderRadius: 3,
-                  height: d.count === 0 ? 2 : Math.max(4, (d.count / max) * 72),
-                  background:
-                    d.count === max
-                      ? "var(--coral)"
-                      : `oklch(62% 0.17 42 / ${0.2 + (d.count / max) * 0.8})`,
-                }}
-              />
-            </div>
-          ))}
-        </div>
-        <div style={{ display: "flex", justifyContent: "space-between", marginTop: 8 }}>
-          {HOUR_LABELS.map((l) => (
-            <span key={l} style={{ fontSize: 10, color: "var(--ink-faint)" }}>
-              {l}
-            </span>
-          ))}
-        </div>
+      <div style={{ display: "flex", alignItems: "flex-end", gap: 2, height: 100 }}>
+        {data.map((d, i) => (
+          <div
+            key={i}
+            title={`${d.hour}:00 UTC: ${d.count}`}
+            style={{
+              flex: 1,
+              borderRadius: "3px 3px 0 0",
+              height: d.count === 0 ? 2 : Math.max(4, (d.count / max) * 100),
+              background: barColour(d.count, max),
+            }}
+          />
+        ))}
+      </div>
+      <div style={{ display: "flex", justifyContent: "space-between", marginTop: 8 }}>
+        {HOUR_LABELS.map((l) => (
+          <span key={l} style={{ fontSize: 10, color: "var(--ink-faint)" }}>
+            {l}
+          </span>
+        ))}
       </div>
     </ChartCard>
   );
@@ -286,53 +246,17 @@ export function StreetHeatMap({ data }: { data: StreetCostEntry[] }) {
               const tier = getTier(norm);
               const colours = TIER_COLOURS[tier];
               return (
-                <tr
-                  key={i}
-                  style={{ borderTop: "1px solid var(--cream-dark)" }}
-                >
-                  <td
-                    style={{
-                      padding: "10px 16px",
-                      fontSize: 13,
-                      fontWeight: 600,
-                      color: colours.text,
-                      background: colours.bg,
-                    }}
-                  >
+                <tr key={i} style={{ borderTop: "1px solid var(--cream-dark)" }}>
+                  <td style={{ padding: "10px 16px", fontSize: 13, fontWeight: 600, color: colours.text, background: colours.bg }}>
                     {d.street}
                   </td>
-                  <td
-                    style={{
-                      padding: "10px 16px",
-                      textAlign: "right",
-                      fontSize: 13,
-                      fontWeight: 700,
-                      color: colours.text,
-                      background: colours.bg,
-                    }}
-                  >
+                  <td style={{ padding: "10px 16px", textAlign: "right", fontSize: 13, fontWeight: 700, color: colours.text, background: colours.bg }}>
                     £{d.avg_per_person}
                   </td>
-                  <td
-                    style={{
-                      padding: "10px 16px",
-                      textAlign: "right",
-                      fontSize: 13,
-                      color: "var(--ink-mid)",
-                      background: colours.bg,
-                    }}
-                  >
+                  <td style={{ padding: "10px 16px", textAlign: "right", fontSize: 13, color: "var(--ink-mid)", background: colours.bg }}>
                     £{d.avg_total}
                   </td>
-                  <td
-                    style={{
-                      padding: "10px 16px",
-                      textAlign: "right",
-                      fontSize: 12,
-                      color: "var(--ink-faint)",
-                      background: colours.bg,
-                    }}
-                  >
+                  <td style={{ padding: "10px 16px", textAlign: "right", fontSize: 12, color: "var(--ink-faint)", background: colours.bg }}>
                     {d.count}
                   </td>
                 </tr>

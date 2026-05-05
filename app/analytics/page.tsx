@@ -124,7 +124,7 @@ export default async function AnalyticsPage() {
           </div>
         ) : (
           <>
-            <div className="grid grid-cols-4 gap-4 mb-8">
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-8">
               <KpiCard label="Total seen" value={data.total.toLocaleString()} />
               <KpiCard label="Last 30 days" value={data.last_30_days} />
               <KpiCard label="Most active agent" value={data.top_agent} />
@@ -132,7 +132,7 @@ export default async function AnalyticsPage() {
             </div>
 
             <WeeklyChart data={data.by_week} />
-            <div className="grid grid-cols-2 gap-5 mb-5">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 mb-5">
               <DayOfWeekChart data={data.by_day_of_week} />
               <HourChart data={data.by_hour} />
             </div>
