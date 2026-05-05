@@ -438,7 +438,7 @@ export default async function Home() {
 
         {/* ── FAQ ────────────────────────────────────────────────────── */}
         <section className="px-8 py-24" style={{ background: "var(--white)" }}>
-          <div className="faq-inner grid max-w-[1080px] mx-auto" style={{ gridTemplateColumns: "300px 1fr", gap: 80 }}>
+          <div className="faq-inner grid max-w-[1080px] mx-auto">
             <div>
               <p
                 className="font-bold uppercase tracking-widest mb-3"

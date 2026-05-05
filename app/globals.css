@@ -27,6 +27,11 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
+.faq-inner {
+  grid-template-columns: 300px 1fr;
+  gap: 80px;
+}
+
 @media (max-width: 700px) {
   .nav-links .nav-link { display: none; }
   .stats-grid { grid-template-columns: repeat(2, 1fr); }
@@ -38,7 +43,7 @@ body {
   .urgency-btn { width: 100%; }
   .faq-inner,
   .guide-inner,
-  .post-layout { grid-template-columns: 1fr; }
+  .post-layout { grid-template-columns: 1fr; gap: 32px; }
   .post-sidebar,
   .guide-sidebar { display: none; }
 }
