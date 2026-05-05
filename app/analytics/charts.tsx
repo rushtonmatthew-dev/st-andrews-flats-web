@@ -199,7 +199,7 @@ function getTier(normalised: number): string {
 }
 
 export function StreetHeatMap({ data }: { data: StreetCostEntry[] }) {
-  if (data.length === 0) return null;
+  if (data.length < 5) return null;
 
   const min = data[data.length - 1].avg_per_person;
   const max = data[0].avg_per_person;

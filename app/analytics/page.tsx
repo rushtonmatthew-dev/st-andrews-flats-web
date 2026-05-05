@@ -137,7 +137,7 @@ export default async function AnalyticsPage() {
               <HourChart data={data.by_hour} />
             </div>
             <AgentChart data={data.by_agent} />
-            {streetData.length > 0 && <StreetHeatMap data={streetData} />}
+            {streetData.length >= 5 && <StreetHeatMap data={streetData} />}
 
             <p className="text-center mt-6" style={{ fontSize: 12, color: "var(--ink-faint)" }}>
               Updated every 15 minutes. Times shown in {tzLabel}.
