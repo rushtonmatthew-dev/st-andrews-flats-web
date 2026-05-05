@@ -175,7 +175,7 @@ def generate_post(audience: str, angle: str, intel: str, existing_posts: list[di
 
     message = client.messages.create(
         model="claude-sonnet-4-6",
-        max_tokens=4096,
+        max_tokens=8192,
         messages=[{"role": "user", "content": prompt}]
     )
 
