@@ -11,6 +11,15 @@ export const metadata: Metadata = {
 
 const posts = [
   {
+    slug: "how-to-find-private-accommodation-st-andrews-postgraduate",
+    title: "How to Find Private Accommodation in St Andrews as a Postgraduate Student",
+    date: "May 2026",
+    excerpt:
+      "A practical guide for postgraduate students renting privately in St Andrews — timelines, costs, letting agents, and how to navigate the UK's tightest student market.",
+    cover_image: "",
+    cover_image_alt: "How to Find Private Accommodation in St Andrews as a Postgraduate Student",
+  },
+  {
     slug: "st-andrews-student-housing-costs-international-students-budget-guide",
     title: "St Andrews Student Housing Costs: What International Students Actually Pay (And How to Budget for It)",
     date: "May 2026",
