@@ -1,4 +1,4 @@
-/* BLOG_META {"title": "How to Find Private Accommodation in St Andrews as a Postgraduate Student", "audience": "postgraduate students", "angle": "practical how-to guide", "date": "2026-05-11", "cover_image": ""} */
+/* BLOG_META {"title": "How to Find Private Accommodation in St Andrews as a Postgraduate Student", "audience": "postgraduate students", "angle": "practical how-to guide", "date": "2026-05-11", "cover_image": "/images/blog/how-to-find-private-accommodation-st-andrews-postgraduate-cover.png"} */
 import type { Metadata } from 'next'
 import BlogPost from '@/components/BlogPost'
 
@@ -103,9 +103,12 @@ For more guidance on renting privately in St Andrews — including letting agent
 export default function Page() {
   return (
     <BlogPost
+      slug="how-to-find-private-accommodation-st-andrews-postgraduate"
       title="How to Find Private Accommodation in St Andrews as a Postgraduate Student"
       date="2026-05-11"
       body={body}
+      coverImage="/images/blog/how-to-find-private-accommodation-st-andrews-postgraduate-cover.png"
+      coverImageAlt="How to Find Private Accommodation in St Andrews as a Postgraduate Student"
     />
   )
 }

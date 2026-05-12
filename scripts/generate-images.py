@@ -78,6 +78,10 @@ IMAGES = [
         "path":  "blog/st-andrews-student-housing-costs-international-students-budget-guide-cover.png",
         "query": "student housing costs budget international university",
     },
+    {
+        "path":  "blog/how-to-find-private-accommodation-st-andrews-postgraduate-cover.png",
+        "query": "student apartment flat university renting",
+    },
 ]
 
 
