@@ -74,6 +74,10 @@ IMAGES = [
         "path":  "blog/student-renter-legal-rights-st-andrews-parents-guide-cover.png",
         "query": "legal rights renting tenant university student",
     },
+    {
+        "path":  "blog/st-andrews-student-housing-costs-international-students-budget-guide-cover.png",
+        "query": "student housing costs budget international university",
+    },
 ]
 
 

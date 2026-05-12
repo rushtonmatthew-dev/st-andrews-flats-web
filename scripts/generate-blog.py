@@ -251,6 +251,7 @@ const body = `{escaped_body}`
 export default function Page() {{
   return (
     <BlogPost
+      slug="{slug}"
       title="{title_jsx}"
       date="{published_date}"
       body={{body}}{cover_image_prop}
