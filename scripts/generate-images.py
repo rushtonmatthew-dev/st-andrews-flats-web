@@ -80,7 +80,7 @@ IMAGES = [
     },
     {
         "path":  "blog/how-to-find-private-accommodation-st-andrews-postgraduate-cover.png",
-        "query": "student apartment flat university renting",
+        "query": "university library books study desk",
     },
 ]
 
