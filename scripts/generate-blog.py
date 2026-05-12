@@ -276,6 +276,20 @@ def _unsplash_query(title: str) -> str:
     return " ".join(words[:5]) + " university student"
 
 
+MANIFEST_PATH = IMAGES_DIR / "unsplash-manifest.json"
+
+
+def _load_manifest() -> dict:
+    if MANIFEST_PATH.exists():
+        return json.loads(MANIFEST_PATH.read_text(encoding="utf-8"))
+    return {}
+
+
+def _save_manifest(manifest: dict) -> None:
+    IMAGES_DIR.mkdir(parents=True, exist_ok=True)
+    MANIFEST_PATH.write_text(json.dumps(manifest, indent=2), encoding="utf-8")
+
+
 def generate_cover_image(title: str, slug: str) -> str | None:
     """Fetch a cover image from Unsplash and return the public path, or None on failure."""
     access_key = os.environ.get("UNSPLASH_ACCESS_KEY")
@@ -288,12 +302,15 @@ def generate_cover_image(title: str, slug: str) -> str | None:
         print(f"  [image] {out_path.name} already exists — reusing")
         return f"/images/blog/{slug}-cover.png"
 
+    manifest = _load_manifest()
+    used_ids = set(manifest.values())
+
     query = _unsplash_query(title)
     print(f"  [image] Searching Unsplash for '{query}' …")
     try:
         resp = requests.get(
             "https://api.unsplash.com/search/photos",
-            params={"query": query, "orientation": "landscape", "per_page": 1, "client_id": access_key},
+            params={"query": query, "orientation": "landscape", "per_page": 10, "client_id": access_key},
             timeout=15,
         )
         resp.raise_for_status()
@@ -302,7 +319,10 @@ def generate_cover_image(title: str, slug: str) -> str | None:
             print(f"  [image] No Unsplash results for '{query}'")
             return None
 
-        photo = results[0]
+        photo = next((p for p in results if p["id"] not in used_ids), results[0])
+        if photo["id"] in used_ids:
+            print("  [image] WARNING: all results already used by other posts — picking first anyway")
+
         # Required by Unsplash API guidelines
         requests.get(photo["links"]["download_location"],
                      params={"client_id": access_key}, timeout=10)
@@ -311,6 +331,8 @@ def generate_cover_image(title: str, slug: str) -> str | None:
         img.raise_for_status()
         IMAGES_DIR.mkdir(parents=True, exist_ok=True)
         out_path.write_bytes(img.content)
+        manifest[f"{slug}-cover.png"] = photo["id"]
+        _save_manifest(manifest)
         print(f"  [image] Saved {out_path.name} ({out_path.stat().st_size // 1024} KB)"
               f" — photo by {photo['user']['name']} on Unsplash")
         return f"/images/blog/{slug}-cover.png"
