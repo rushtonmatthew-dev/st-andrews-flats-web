@@ -11,6 +11,15 @@ export const metadata: Metadata = {
 
 const posts = [
   {
+    slug: "commuting-to-st-andrews-university-cost-comparison",
+    title: "Commuting to St Andrews University: What It Actually Costs (And Whether It's Worth It)",
+    date: "May 2026",
+    excerpt:
+      "Thinking of commuting to St Andrews instead of renting locally? Here's a clear cost comparison to help you decide what makes financial sense.",
+    cover_image: "/images/blog/commuting-to-st-andrews-university-cost-comparison-cover.png",
+    cover_image_alt: "Commuting to St Andrews University: What It Actually Costs (And Whether It's Worth It)",
+  },
+  {
     slug: "how-to-find-private-accommodation-st-andrews-postgraduate",
     title: "How to Find Private Accommodation in St Andrews as a Postgraduate Student",
     date: "May 2026",
