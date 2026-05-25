@@ -11,6 +11,15 @@ export const metadata: Metadata = {
 
 const posts = [
   {
+    slug: "st-andrews-student-housing-crisis-causes-and-future",
+    title: "The St Andrews Student Housing Crisis: What's Really Driving It (And What Happens Next)",
+    date: "May 2026",
+    excerpt:
+      "Why is private student accommodation in St Andrews so expensive and so hard to find? A deep-dive investigation for second-years facing the private market.",
+    cover_image: "/images/blog/st-andrews-student-housing-crisis-causes-and-future-cover.png",
+    cover_image_alt: "The St Andrews Student Housing Crisis: What's Really Driving It (And What Happens Next)",
+  },
+  {
     slug: "commuting-to-st-andrews-university-cost-comparison",
     title: "Commuting to St Andrews University: What It Actually Costs (And Whether It's Worth It)",
     date: "May 2026",
