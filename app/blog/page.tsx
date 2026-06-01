@@ -11,6 +11,15 @@ export const metadata: Metadata = {
 
 const posts = [
   {
+    slug: "st-andrews-student-housing-costs-parents-budget-guide",
+    title: "St Andrews Student Housing Costs: A Parent's Complete Budget Guide for 2026",
+    date: "June 2026",
+    excerpt:
+      "What will your child's housing actually cost at St Andrews in 2026? A complete parent's guide to rents, halls fees, and what to budget for realistically.",
+    cover_image: "/images/blog/st-andrews-student-housing-costs-parents-budget-guide-cover.png",
+    cover_image_alt: "St Andrews Student Housing Costs: A Parent's Complete Budget Guide for 2026",
+  },
+  {
     slug: "st-andrews-student-housing-crisis-causes-and-future",
     title: "The St Andrews Student Housing Crisis: What's Really Driving It (And What Happens Next)",
     date: "May 2026",
