@@ -11,6 +11,15 @@ export const metadata: Metadata = {
 
 const posts = [
   {
+    slug: "how-to-rent-flat-st-andrews-international-student-guide",
+    title: "How to Rent a Flat in St Andrews as an International Student: A Step-by-Step Guide",
+    date: "June 2026",
+    excerpt:
+      "Practical step-by-step guide for international students renting private accommodation in St Andrews — timelines, agents, contracts, and what to watch out for.",
+    cover_image: "/images/blog/how-to-rent-flat-st-andrews-international-student-guide-cover.png",
+    cover_image_alt: "How to Rent a Flat in St Andrews as an International Student: A Step-by-Step Guide",
+  },
+  {
     slug: "st-andrews-student-housing-costs-parents-budget-guide",
     title: "St Andrews Student Housing Costs: A Parent's Complete Budget Guide for 2026",
     date: "June 2026",
