@@ -1,3 +1,7 @@
+import type { Metadata } from "next";
+
+export const metadata: Metadata = { robots: "noindex, nofollow" };
+
 export default function LandlordsPage() {
   return (
     <main className="flex flex-col items-center justify-center min-h-screen px-4 py-16 text-center">

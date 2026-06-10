@@ -33,6 +33,7 @@ export default function SiteNav() {
 
         <nav className="nav-links flex items-center gap-1">
           {[
+            { href: "/listings", label: "New listings" },
             { href: "/analytics", label: "Live market data" },
             { href: "/blog", label: "Student guides" },
             { href: "/guide", label: "Housing guide" },
