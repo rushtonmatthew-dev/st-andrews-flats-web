@@ -22,13 +22,12 @@ export const metadata: Metadata = {
 };
 
 type Listing = {
-  id: string;
+  url: string;
   title: string | null;
   price: string | null;
   bedrooms: string | null;
   scraper_name: string;
   first_seen_at: string;
-  url: string | null;
 };
 
 type DayGroup = {
@@ -72,12 +71,15 @@ async function getRecentListings(): Promise<DayGroup[]> {
 
   const { data, error } = await getSupabase()
     .from("seen_listings")
-    .select("id, title, price, bedrooms, scraper_name, first_seen_at, url")
+    .select("url, title, price, bedrooms, scraper_name, first_seen_at")
     .gte("first_seen_at", cutoff.toISOString())
     .order("first_seen_at", { ascending: false })
     .limit(500);
 
-  if (error) throw new Error("Database error");
+  if (error) {
+    console.error("seen_listings query failed:", error);
+    throw new Error("Database error");
+  }
 
   const rows = (data ?? []) as Listing[];
 
@@ -150,31 +152,30 @@ function ListingCard({ listing }: { listing: Listing }) {
         )}
       </div>
 
-      {listing.url && (
-        <a
-          href={listing.url}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="inline-flex items-center gap-1 font-medium mt-1"
-          style={{ fontSize: 13, color: "var(--coral)" }}
+      <a
+        href={listing.url}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="inline-flex items-center gap-1 font-medium mt-1"
+        style={{ fontSize: 13, color: "var(--coral)" }}
+      >
+        View listing
+        <svg
+          width="12"
+          height="12"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
         >
-          View listing
-          <svg
-            width="12"
-            height="12"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2.5"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          >
-            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
-            <polyline points="15 3 21 3 21 9" />
-            <line x1="10" y1="14" x2="21" y2="3" />
-          </svg>
-        </a>
-      )}
+          <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+          <polyline points="15 3 21 3 21 9" />
+          <line x1="10" y1="14" x2="21" y2="3" />
+        </svg>
+      </a>
+
     </div>
   );
 }
@@ -182,11 +183,13 @@ function ListingCard({ listing }: { listing: Listing }) {
 export default async function ListingsPage() {
   let groups: DayGroup[] = [];
   let loadError = false;
+  let loadErrorDetail = "";
 
   try {
     groups = await getRecentListings();
-  } catch {
+  } catch (e) {
     loadError = true;
+    loadErrorDetail = e instanceof Error ? e.message : String(e);
   }
 
   const totalListings = groups.reduce((n, g) => n + g.listings.length, 0);
@@ -236,6 +239,11 @@ export default async function ListingsPage() {
             <p style={{ color: "var(--ink-soft)" }}>
               Could not load listings. Please try again later.
             </p>
+            {loadErrorDetail && process.env.NODE_ENV === "development" && (
+              <p style={{ color: "var(--ink-faint)", fontSize: 12, marginTop: 8, fontFamily: "monospace" }}>
+                {loadErrorDetail}
+              </p>
+            )}
           </div>
         ) : groups.length === 0 ? (
           <div
@@ -274,7 +282,7 @@ export default async function ListingsPage() {
                 </div>
                 <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
                   {group.listings.map((listing) => (
-                    <ListingCard key={listing.id} listing={listing} />
+                    <ListingCard key={listing.url} listing={listing} />
                   ))}
                 </div>
               </section>
