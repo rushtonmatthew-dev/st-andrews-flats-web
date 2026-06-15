@@ -11,6 +11,15 @@ export const metadata: Metadata = {
 
 const posts = [
   {
+    slug: "postgraduate-renter-rights-st-andrews-legal-protections",
+    title: "Postgraduate Renter's Rights in St Andrews: The Legal Protections You Need to Know",
+    date: "June 2026",
+    excerpt:
+      "Postgraduate students renting in St Andrews face a brutal market. Here are the legal rights and protections that every PGT and PGR renter must understand.",
+    cover_image: "/images/blog/postgraduate-renter-rights-st-andrews-legal-protections-cover.png",
+    cover_image_alt: "Postgraduate Renter's Rights in St Andrews: The Legal Protections You Need to Know",
+  },
+  {
     slug: "how-to-rent-flat-st-andrews-international-student-guide",
     title: "How to Rent a Flat in St Andrews as an International Student: A Step-by-Step Guide",
     date: "June 2026",
