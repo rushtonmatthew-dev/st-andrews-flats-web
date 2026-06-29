@@ -11,6 +11,15 @@ export const metadata: Metadata = {
 
 const posts = [
   {
+    slug: "commuting-students-st-andrews-legal-rights",
+    title: "Commuting to St Andrews University: Your Legal Rights as a Student Renter",
+    date: "June 2026",
+    excerpt:
+      "Commuting to St Andrews? Know your legal rights before you rent. Scottish tenancy law, HMO rules, rent caps, and deposit protections explained.",
+    cover_image: "/images/blog/commuting-students-st-andrews-legal-rights-cover.png",
+    cover_image_alt: "Commuting to St Andrews University: Your Legal Rights as a Student Renter",
+  },
+  {
     slug: "postgraduate-renter-rights-st-andrews-legal-protections",
     title: "Postgraduate Renter's Rights in St Andrews: The Legal Protections You Need to Know",
     date: "June 2026",
